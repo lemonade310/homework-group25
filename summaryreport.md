@@ -1,67 +1,40 @@
 #summary
+<br>
 
-![image](https://github.com/lemonade310/homework-group25/assets/139195261/2b31ff82-9040-4943-ac58-d7cc8c6f1a19)
-
-2023年春季学期《创新创业实践课》实验报告   
-
-
-
-姓名：李直桐
-组别：25
-班级： 密码21.1
-学号：202100460076
+2023年春季学期《创新创业实践课》实验报告<br>
 
 
 
-25组人员分工表：
-姓名：李直桐 
-学号：202100460076 
-负责project：1,2,3,4,5,9,10,17,22
+姓名：李直桐<br>
+组别：25<br>
+班级： 密码21.1<br>
+学号：202100460076<br>
+<br>
 
+<br>
+25组人员分工表：<br>
+姓名：李直桐 <br>
+学号：202100460076 <br>
+负责project：1,2,3,4,5,9,10,17,22<br>
 
-目录
-*Project1: implement the naïve birthday attack of reduced SM3	3
-*Project2: implement the Rho method of reduced SM3	4
-*Project3: implement length extension attack for SM3, SHA256, etc.	6
-*Project4: do your best to optimize SM3 implementation (software)	7
-*Project5: Impl Merkle Tree following RFC6962	9
-*Project9: AES / SM4 software implementation	14
-*Project10: report on the application of this deduce technique in Ethereum with ECDSA	19
-*Project17：比较Firefox和谷歌的记住密码插件的实现区别	23
-*Project22: research report on MPT	26
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*Project1: implement the naïve birthday attack of reduced SM3
-
-生日攻击：寻找哈希函数的具有相同输出的两个任意输入，即寻找碰撞。
-如生日悖论中所描述的，对于哈希函数H(x)，有2^m个可能的输出，那么至少有两个输入产生相同输出的概率大于0.5，则选取的随机输入数量为2^(m/2)。
-对于SM3算法，输出值为256bit，则我们随机选取2^128个输入，则至少有两个输入的概率大于0.5。
-
-代码思路：
-依次计算输入消息的哈希值，建立一个列表，将输入消息与其哈希值相对应，将本次的计算结果与列表中每个值比较，若相等，则说明碰撞成功，找到两个输出值相同的消息值。
-
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：VS2019
-代码语言：C++
-
-关键代码：
+<br>
+*Project1: implement the naïve birthday attack of reduced SM3<br>
+<br>
+生日攻击：寻找哈希函数的具有相同输出的两个任意输入，即寻找碰撞。<br>
+如生日悖论中所描述的，对于哈希函数H(x)，有2^m个可能的输出，那么至少有两个输入产生相同输出的概率大于0.5，则选取的随机输入数量为2^(m/2)。<br>
+对于SM3算法，输出值为256bit，则我们随机选取2^128个输入，则至少有两个输入的概率大于0.5。<br>
+<br>
+代码思路：<br>
+依次计算输入消息的哈希值，建立一个列表，将输入消息与其哈希值相对应，将本次的计算结果与列表中每个值比较，若相等，则说明碰撞成功，找到两个输出值相同的消息值。<br>
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：VS2019<br>
+代码语言：C++<br>
+<br>
+关键代码：<br>
 1.string list[max_num];  //建立哈希值对应表  
 2.bool sm3_birthday_attack() {  
 3.    for (int i = 0; i < max_num; i++) {  
@@ -109,14 +82,15 @@ Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其�
 代码思路：
 建立两个列表，rho初值取0，迭代2*rho+1，将输入消息与其哈希值相对应，将本次的计算结果与结果列表listb[]中每个值比较，若相等，则说明碰撞成功，找到两个输出值相同的消息值。
 
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：VS2019
-代码语言：C++
-
-关键代码：
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：VS2019<br>
+代码语言：C++<br>
+<br>
+关键代码：<br>
 1.string lista[max_num];  //用于存储原消息值  
 2.string listb[max_num];  //用于存储对应哈希值  
 3.bool sm3_rho_attack() {  
@@ -173,15 +147,15 @@ Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其�
 
 代码思路：
 长度扩展攻击需要我们知道消息值压缩后的结果以及消息值的长度，我们对扩展值进行消息填充，并加上原始消息值的长度，将原始消息的哈希值作为IV对此数据进行迭代压缩，得到新的哈希值，与原始哈希值比较，若相等，则说明长度扩展攻击成功。
-
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：VS2019
-代码语言：C++
-
-关键代码：
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：VS2019<br>
+代码语言：C++<br>
+<br>
+关键代码：<br>
 
 1.string sm3_len_extension_attack(string hash1,int len, string exstr) {  
 2.    string paddingvalue = padding(exstr);//扩展消息填充  
@@ -215,13 +189,15 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 
 关键代码：
 
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：VS2019<br>
+代码语言：C++<br>
+<br>
 
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：VS2019
-代码语言：C++
 
 运行结果：
 以32字节数据进行压缩为例
@@ -245,14 +221,15 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 函数BuildLeaves()用于建立叶子结点列表，输入建立默克尔树的基础字符串，装入容器vector中，计算每个字符串的哈希值，作为叶子结点，压入结点列表中。
 函数BuildTree()用于构建Merkle Tree，循环中每次传入结点列表的一列，计算相邻两个结点的哈希值，作为父节点，直至得到根节点。
 
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：VS2019
-代码语言：C++
-
-关键代码：
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：VS2019<br>
+代码语言：C++<br>
+<br>
+关键代码：<br>
 1.void MerkleTree::BuildLeaves(vector<string> base_leaf){  //建立叶子节点列表  
 2.    vector<node*> new_leaf;  
 3.  
@@ -358,14 +335,15 @@ AES的密钥支持三种长度：AES128、AES192、AES256。密钥的长度决�
 以AES128为例，AES的加密公式为C=E(K,P)，在加密函数E中，会执行一个轮函数，并且执行10次这个轮函数，这个轮函数的前9次执行的操作是一样的，只有第10次有所不同。
 
 
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：VS2019
-代码语言：C++
-
-关键代码：
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：VS2019<br>
+代码语言：C++<br>
+<br>
+关键代码：<br>
 ①行移位：
 1.void ShiftRows(unsigned char parray[4][4]){  
 2.    // 复制parray到temp  
@@ -462,14 +440,15 @@ SM4 密码算法采用 32 轮的迭代加密结构，拥有 128 位加密密钥�
 ②For i=0,1,…,30,31 Do
 rki=K(i+4)=Ki⊕T’(K(i+1)⊕K(i+2)⊕K(i+3)⊕CKi)
 
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：VS2019
-代码语言：C++
-
-关键代码：
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：VS2019<br>
+代码语言：C++<br>
+<br>
+关键代码：<br>
 1.uint32_t K[36];  
 2.K[0] = MK[0] ^ FK[0];  
 3.K[1] = MK[1] ^ FK[1];  
@@ -587,13 +566,15 @@ Secp256k1是指比特币中使用的ECDSA(椭圆曲线数字签名算法)曲线�
 传统的ECDSA签名验证过程包括计算一个点R=r*G，并将其x坐标与签名中的r进行比较。然而，这个比较操作需要进行一次椭圆曲线点的加法运算，导致了一定的计算开销。推导技术通过优化签名验证过程中的计算步骤，可以减少计算开销，提高签名验证的效率。
 
 总之，ECDSA在以太坊区块链中发挥着重要作用，保护了交易的安全性和完整性，同时确保了用户的身份验证和授权。它是以太坊网络的基石，为用户提供了安全可靠的交易环境。同时，加密技术的进步将进一步提高ECDSA在保护平台交易方面的效率和韧性。
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：python3.10(64-bit) <br>
+代码语言：Python<br>
+<br>
 
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：python3.10(64-bit)
-代码语言：Python
 
 代码实现：
 1.from ecdsa import SigningKey, SECP256k1, VerifyingKey  
@@ -664,12 +645,15 @@ get_encryption_key()函数提取并解码用于加密密码的AES密钥，这"%U
 decrypt_password() 将加密密码和 AES 密钥作为参数，并返回密码的解密版本。
 在主函数中，我们使用get_encryption_key()函数获取加密密钥，然后我们将 sqlite 数据库（位于"%USERPROFILE%\AppData\Local\Google\Chrome\User Data\default\Login Data"保存密码的位置）复制到当前目录并连接到它，这是因为Chrome 当前正在运行，原始数据库文件将被锁定。之后，我们对登录表进行选择查询并遍历所有登录行，我们还解密每个密码date_created，完美提取Chrome浏览器保存的密码。最后，打印凭据并从当前目录中删除数据库副本。
 
-实验环境：
-处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
-内存：16GB LPDDR4
-操作系统：Win11
-编译器：python3.10(64-bit)
-代码语言：Python
+
+<br>
+实验环境：<br>
+处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
+内存：16GB LPDDR4<br>
+操作系统：Win11<br>
+编译器：python3.10(64-bit) <br>
+代码语言：Python<br>
+<br>
 
 关键代码：
 1.def get_encryption_key():  
