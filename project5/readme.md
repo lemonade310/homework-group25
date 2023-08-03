@@ -1,6 +1,6 @@
-#Project5: Impl Merkle Tree following RFC6962
+# Project5: Impl Merkle Tree following RFC6962
 
-运行环境：
+### 运行环境：
 
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
 
@@ -12,7 +12,7 @@
 
 代码语言：C++
 
-运行方法：
+### 运行方法：
 
 在VS2019中打开sm3.h头文件、merkletree.h头文件和merkletreemain.cpp源文件，运行即可。
 
