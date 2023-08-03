@@ -1,4 +1,4 @@
-#summary
+# summary
 <br>
 
 2023年春季学期《创新创业实践课》实验报告<br>
@@ -10,7 +10,7 @@
 负责project：1,2,3,4,5,9,10,17,22<br>
 
 <br>
-##*Project1: implement the naïve birthday attack of reduced SM3<br>
+## *Project1: implement the naïve birthday attack of reduced SM3<br>
 <br>
 生日攻击：寻找哈希函数的具有相同输出的两个任意输入，即寻找碰撞。<br>
 如生日悖论中所描述的，对于哈希函数H(x)，有2^m个可能的输出，那么至少有两个输入产生相同输出的概率大于0.5，则选取的随机输入数量为2^(m/2)。<br>
@@ -71,7 +71,7 @@ bool sm3_birthday_attack() {
 <br>
 <br>
 <br>
-##*Project2: implement the Rho method of reduced SM3<br>
+# # Project2: implement the Rho method of reduced SM3<br>
 <br>
 Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其中f是多项式函数，此处选择f(x)=2*x+1，必然会形成一个环。通过多项式迭代产生数列，从中寻找整数x1和x2满足H(x1)=H(x2)。<br>
 <br>
