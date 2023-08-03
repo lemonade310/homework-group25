@@ -1,6 +1,5 @@
 # 《创新创业实践课》汇总报告<br>
-## 小组分工
-<br>
+## 小组分工<br>
 25组人员分工表：<br>
 姓名：李直桐 <br>
 学号：202100460076 <br>
@@ -77,18 +76,20 @@ bool sm3_birthday_attack() {
 <br>
 Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其中f是多项式函数，此处选择f(x)=2*x+1，必然会形成一个环。通过多项式迭代产生数列，从中寻找整数x1和x2满足H(x1)=H(x2)。<br>
 <br>
-代码思路：<br>
-建立两个列表，rho初值取0，迭代2*rho+1，将输入消息与其哈希值相对应，将本次的计算结果与结果列表listb[]中每个值比较，若相等，则说明碰撞成功，找到两个输出值相同的消息值。<br>
 
+#### 代码思路：<br>
+建立两个列表，rho初值取0，迭代2*rho+1，将输入消息与其哈希值相对应，将本次的计算结果与结果列表listb[]中每个值比较，若相等，则说明碰撞成功，找到两个输出值相同的消息值。<br>
 <br>
-实验环境：<br>
+
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
 编译器：VS2019<br>
 代码语言：C++<br>
 <br>
-关键代码：<br>
+
+#### 关键代码：<br>
 
 ```c++
 string lista[max_num];  //用于存储原消息值
@@ -133,7 +134,7 @@ bool sm3_rho_attack() {
 }
 ```
 
-运行结果：<br>
+#### 运行结果：<br>
 因计算量过大，故以寻找哈希值前4字节相同为例，进行Pollard ρ攻击。<br>
 运行速度为137s<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/bedc2087-f2f1-4c84-8723-9b4e9f72864a)
@@ -144,21 +145,23 @@ bool sm3_rho_attack() {
 <br>
 <br>
 <br>
+
 ## *Project3: implement length extension attack for SM3, SHA256, etc.<br>
 <br>
 长度扩展攻击：假设我们有两段数据S和M以及单向散列函数h，其中S是机密信息。我们通过hash=h(S||M)计算hash值,通过计数数据的hash与原始hash对比来校验数据是否可靠。<br>
 <br>
-代码思路：<br>
+
+#### 代码思路：<br>
 长度扩展攻击需要我们知道消息值压缩后的结果以及消息值的长度，我们对扩展值进行消息填充，并加上原始消息值的长度，将原始消息的哈希值作为IV对此数据进行迭代压缩，得到新的哈希值，与原始哈希值比较，若相等，则说明长度扩展攻击成功。<br>
 <br>
-实验环境：<br>
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
 编译器：VS2019<br>
 代码语言：C++<br>
 <br>
-关键代码：<br>
+#### 关键代码：<br>
 
 ```c++
 string sm3_len_extension_attack(string hash1,int len, string exstr) {
@@ -170,7 +173,7 @@ string sm3_len_extension_attack(string hash1,int len, string exstr) {
 ```
 
 
-运行结果：<br>
+#### 运行结果：<br>
 以原始数据与扩展数据均为256bit为例<br>
 运行速度为0.001s<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/41c65db5-aa4a-4193-bc87-3ced7621d2c7)
@@ -182,27 +185,29 @@ string sm3_len_extension_attack(string hash1,int len, string exstr) {
 <br>
 <br>
 <br>
-##*Project4: do your best to optimize SM3 implementation (software)<br>
+
+## *Project4: do your best to optimize SM3 implementation (software)<br>
 <br>
 软件优化：我们可以通过消除循环的低效率、减少过程调用、循环展开、提高并行性等方法对代码进行优化，从而加速代码计算速度，提高代码的运行效率，实现代码的软件优化。<br>
 <br>
 如图，str.size()在每次循环时都会被计算一次，但是该值在循环中是不改变的，所以我们可以通过将此计算的值赋给s，从而消除每次循环调用的低效率，而实现优化。<br>
 <br>
-关键代码：<br>
+
+#### 关键代码：<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/c312ff85-9429-4fa1-9343-ea043075a4b4)<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/4000a4b3-470c-49b7-bbfa-87379adedc8d)<br>
 
 <br>
 OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程程序设计方案，支持的编程语言包括C、C++和Fortran。OpenMP提供了对并行算法的高层抽象描述，通过线程实现并行化，特别适合在多核CPU机器上的并行程序设计。编译器根据程序中添加的pragma指令，自动将程序并行处理，使用OpenMP降低了并行编程的难度和复杂度。当编译器不支持OpenMP时，程序会退化成普通（串行）程序。程序中已有的OpenMP指令不会影响程序的正常编译运行。OpenMP可以实现多线程并行，提高程序的并行性，而实现优化。<br>
 <br>
-关键代码：<br>
+
+#### 关键代码：<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/29c59bf9-76ef-4889-b817-29a7b19b111f)
 
 <br>
-
-
 <br>
-实验环境：<br>
+
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
@@ -211,7 +216,7 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 <br>
 <br>
 
-运行结果：<br>
+#### 运行结果：<br>
 以32字节数据进行压缩为例<br>
 优化后运行速度为0.177s<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/e869b37a-92a7-45df-866b-74d247ff3554)
@@ -221,7 +226,8 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 <br>
 <br>
 <br>
-*Project5: Impl Merkle Tree following RFC6962<br>
+
+## *Project5: Impl Merkle Tree following RFC6962<br>
 <br>
 默克尔树：默克尔树的最底下的一层节点是数据块，对每两个相邻的数据块取hash并将它们的值再次进行hash得到一个新的节点。再向上将得到的两个相邻的新节点的值做一次hash得到一个上层节点，直至最终得到一个根节点。默克尔树可以被用于验证任何类型的数据的存储。通常被用作与其他节点的计算机之间进行数据转移的数据完整性以及正确性的校验。<br>
 <br>
@@ -232,7 +238,8 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 在比特币中，默克尔树主要负责做交易打包的校验，在 block header 中保存了该区块中打包的所有交易组成的一颗默克尔树的根hash值。默克尔树的特性保证了一旦这个区块被链上其他的节点接受，成为最长有效链的一部分之后。这个节点中的交易就不会再被改变，因为一旦改变其中的交易，就会导致整棵树的根hash值产生变化，最终当前区块的hash值也会改变。这个区块就不会被其他节点接受。<br>
 <br>
 <br>
-实验环境：<br>
+
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
@@ -240,14 +247,14 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 代码语言：C++<br>
 <br>
 
-代码思路：<br>
+#### 代码思路：<br>
 建立节点类与默克尔树类，完善相应函数部分，对于默克尔树，重要部分为建立叶子结点列表、构造默克尔树与验证数据三部分。<br>
 <br>
 函数BuildLeaves()用于建立叶子结点列表，输入建立默克尔树的基础字符串，装入容器vector中，计算每个字符串的哈希值，作为叶子结点，压入结点列表中。<br>
 函数BuildTree()用于构建Merkle Tree，循环中每次传入结点列表的一列，计算相邻两个结点的哈希值，作为父节点，直至得到根节点。<br>
 
 
-关键代码：<br>
+#### 关键代码：<br>
 ```C++
 void MerkleTree::BuildLeaves(vector<string> base_leaf) { //建立叶子节点列表
 	vector<node*> new_leaf;
@@ -304,9 +311,12 @@ void MerkleTree::BuildTree() { //构造Merkle Tree
 <br>
 用户只需要按照规则将自己账户进行一次哈希计算，找到其在这个树中的位置，和相邻节点，然后再一层层的向上计算哈希，最终计算出树根，如果和官方公布的一致那就说明是准备金无误的。<br>
 <br>
+
+#### 代码思路：<br>
 函数Hash_Verify()用于验证数据的正确性，用户输入自己的数据，计算哈希值，与默克尔树的叶子结点比对，若存在相等结点，则说明用户数据存在于默克尔树中；与兄弟结点做哈希，得到父节点，父节点也继续与兄弟结点做哈希，直至得到根节点，与原本存储的根节点作比较，如果相等，则说明数据没有被修改过。<br>
 <br>
-关键代码：<br>
+
+#### 关键代码：<br>
 
 ```c++
 bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
@@ -342,7 +352,8 @@ bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
 ```
 
 <br>
-运行结果：<br>
+
+#### 运行结果：<br>
 哈希函数以SM3为例，输入8组数据，<br>
 构建默克尔树的运行速度为5.1s，<br>
 验证的运行速度为1.5s。<br>
@@ -354,13 +365,13 @@ bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/47db45d0-d6e5-451e-b75b-f24c16829681)
 
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-*Project9: AES / SM4 software implementation<br>
+## *Project9: AES / SM4 software implementation<br>
 <br>
 AES为分组密码，分组密码也就是把明文分成一组一组的，每组长度相等，每次加密一组数据，直到将整个明文加密完成。<br>
 AES的密钥支持三种长度：AES128、AES192、AES256。密钥的长度决定了AES加密的轮数，并且不同阶段的有不同的处理步骤，AES的核心就是实现一轮中的所有操作。我们可以将不同轮次分为初始轮、普通轮、最终轮。<br>
@@ -372,15 +383,17 @@ AES的密钥支持三种长度：AES128、AES192、AES256。密钥的长度决�
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/dc3f975e-01d0-4a0d-bcfb-251a76773de8)
 
 <br>
-实验环境：<br>
+
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
 编译器：VS2019<br>
 代码语言：C++<br>
 <br>
-关键代码：<br>
-①行移位：<br>
+
+#### 关键代码：<br>
+##### ①行移位：<br>
 
 ```c++
 void ShiftRows(unsigned char parray[4][4]){
@@ -416,7 +429,8 @@ void ShiftRows(unsigned char parray[4][4]){
 }
 ```
 <br>
-②列混合：<br>
+
+##### ②列混合：<br>
 
 ```c++
 void MixColums(unsigned char parray[4][4]){
@@ -434,7 +448,8 @@ void MixColums(unsigned char parray[4][4]){
 ```
 
 <br>
-③轮密钥生成：<br>
+
+##### ③轮密钥生成：<br>
 
 ```c++
 void KeyExtend(unsigned char karray[4][4]){
@@ -453,7 +468,8 @@ void KeyExtend(unsigned char karray[4][4]){
 ```
 
 <br>
-④轮密钥加密：<br>
+
+##### ④轮密钥加密：<br>
 
 ```c++
 void AddKeyRound(unsigned char parray[4][4], int round){
@@ -472,7 +488,8 @@ void AddKeyRound(unsigned char parray[4][4], int round){
 
 <br>
 <br>
-运行结果：<br>
+
+#### 运行结果：<br>
 以加密128bit数据为例<br>
 运行速度为0.001s。<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/c6bc7576-b946-4b0a-9c75-a53d3fe18ff2)
@@ -487,21 +504,22 @@ SM4算法是我国商用密码标准，是一个分组加密算法，分组长�
 <br>
 <br>
 <br>
-密钥扩展算法<br>
+
+#### 密钥扩展算法<br>
 SM4 密码算法采用 32 轮的迭代加密结构，拥有 128 位加密密钥，一共使用 32轮密钥，每一轮的加密使用 32 位的一个轮密钥。SM4 算法的特点使得它需要使用一个密钥扩展算法，在加密密钥当中产生 32 个轮密钥。在这个密钥的扩展算法当中有常数 FK、固定参数 CK 这两个数值，具体算法如下：<br>
 ①(K0，K1，K2，K3)=(MK0⊕FK0，MK1⊕FK1,MK2⊕FK2,MK3⊕FK3)<br>
 ②For i=0,1,…,30,31 Do<br>
 rki=K(i+4)=Ki⊕T’(K(i+1)⊕K(i+2)⊕K(i+3)⊕CKi)<br>
 <br>
 <br>
-实验环境：<br>
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
 编译器：VS2019<br>
 代码语言：C<br>
 <br>
-关键代码：<br>
+#### 关键代码：<br>
 
 ```c
     uint32_t K[36];
@@ -521,7 +539,8 @@ rki=K(i+4)=Ki⊕T’(K(i+1)⊕K(i+2)⊕K(i+3)⊕CKi)<br>
 ```
 
 <br>
-SM4 的加密算法<br>
+
+#### SM4 的加密算法<br>
 SM4 密码算法的数据分组长度为 128 比特，密钥长度也是 128 比特，是分组算法当中的一种。它采用 32 轮迭代结构来作为它的加密算法，每轮使用一个轮密钥。设输入的明文为四个字(X0，X1，X2, X3)，一共有 128 位。输入轮密钥为rki,i=0,1,…，31，一共 32 个字。输出密文为四个字(Y0，Y1，Y2, Y3)，128 位。<br>
 则这个加密算法可描述如下:<br>
 ①首先执行32次迭代运算：<br>
@@ -529,7 +548,7 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
 ②对最后一轮数据进行反序变换并得到密文输出：<br>
 (Y0,Y1,Y2,Y3)=R(X32,X33,X34,X35)=(X35,X34,X33,X32)。<br>
 <br>
-关键代码：<br>
+#### 关键代码：<br>
 
 ```c
     uint32_t cipher[36];
@@ -557,7 +576,8 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
 ```
 
 <br>
-运行结果：<br>
+
+#### 运行结果：<br>
 以加密128bit数据为例<br>
 运行速度为0ms。<br>
 <br>
@@ -568,9 +588,11 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
 <br>
 <br>
 <br>
-*Project10: report on the application of this deduce technique in Ethereum with ECDSA<br>
+
+## *Project10: report on the application of this deduce technique in Ethereum with ECDSA<br>
 <br>
-一、ECDSA概述<br>
+
+### 一、ECDSA概述<br>
 椭圆曲线数字签名算法ECDSA (Elliptic Curve Digital Signature Algorithm) 是一个基于椭圆曲线的签名算法。对某个消息进行签名的目的是使接收者确认该消息是由签名者发送的，且未经过篡改。ECDSA是使用椭圆曲线密码（ECC）对数字签名算法（DSA）的模拟。ECDSA于1999年成为ANSI标准，并于2000年成为IEEE和NIST标准。<br>
 <br>
 它在1998年既已为ISO所接受，并且包含它的其他一些标准亦在ISO的考虑之中。与普通的离散对数问题（discrete logarithm problem DLP）和大数分解问题（integer factorization problem IFP）不同，椭圆曲线离散对数问题（elliptic curve discrete logarithm problem ECDLP）没有亚指数时间的解决方法。因此椭圆曲线密码的单位比特强度要高于其他公钥体制。<br>
@@ -581,7 +603,8 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
 <br>
 ECDSA的安全性质：不可伪造性、不可否认性和完整性保证。<br>
 <br>
-二、ECDSA原理<br>
+
+### 二、ECDSA原理<br>
 ECDSA是ECC与DSA的结合，整个签名过程与DSA类似，所不一样的是签名中采取的算法为ECC，最后签名出来的值也是分为r,s。<br>
 <br>
 签名过程如下：<br>
@@ -612,7 +635,8 @@ Secp256k1是指比特币中使用的ECDSA(椭圆曲线数字签名算法)曲线�
 5、将第四步得到的签名与交易数据拼接，再次进行RLP编码，得到最终的签名消息<br>
 <br>
 <br>
-三、ECDSA在以太坊中的应用<br>
+
+### 三、ECDSA在以太坊中的应用<br>
 交易签名验证：在以太坊中，每个交易都需要进行数字签名来验证其合法性。发送方使用私钥对交易进行签名，接收方使用发送方的公钥和签名来验证交易的真实性。ECDSA算法被用于生成和验证这些数字签名，确保交易的安全性和完整性。<br>
 <br>
 合约部署和调用：以太坊中的智能合约也需要进行数字签名来验证其合法性。合约的创建者使用私钥对合约进行签名，以太坊网络中的节点使用公钥和签名来验证合约的真实性。ECDSA算法被用于生成和验证这些数字签名，确保合约的安全性和完整性。<br>
@@ -623,7 +647,7 @@ Secp256k1是指比特币中使用的ECDSA(椭圆曲线数字签名算法)曲线�
 <br>
 总之，ECDSA在以太坊中广泛应用于交易签名验证、合约部署和调用、账户身份验证以及消息验证等方面，保证了以太坊网络的安全性和完整性。<br>
 <br>
-四、该推导技术在以太坊ECDSA中的应用<br>
+### 四、该推导技术在以太坊ECDSA中的应用<br>
 1、密钥生成<br>
 传统的ECDSA密钥生成过程包括选择一个随机数k，并计算公钥Q=k*G，其中G是基点。然而，选择合适的随机数k是一个困难的问题，因为k的选择会影响到私钥的安全性。推导技术通过优化随机数的选择过程，可以减少私钥被猜测的风险，从而提高密钥生成的效率和安全性。<br>
 2、签名验证<br>
@@ -631,7 +655,7 @@ Secp256k1是指比特币中使用的ECDSA(椭圆曲线数字签名算法)曲线�
 <br>
 总之，ECDSA在以太坊区块链中发挥着重要作用，保护了交易的安全性和完整性，同时确保了用户的身份验证和授权。它是以太坊网络的基石，为用户提供了安全可靠的交易环境。同时，加密技术的进步将进一步提高ECDSA在保护平台交易方面的效率和韧性。<br>
 <br>
-实验环境：<br>
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
@@ -640,7 +664,7 @@ Secp256k1是指比特币中使用的ECDSA(椭圆曲线数字签名算法)曲线�
 <br>
 
 
-代码实现：<br>
+#### 代码实现：<br>
 
 ```python
 from ecdsa import SigningKey, SECP256k1, VerifyingKey
@@ -681,7 +705,8 @@ print('verification time: ',t4-t3,'s')
 ```
 
 <br>
-运行结果：<br>
+
+#### 运行结果：<br>
 签名时间为0s，验证时间为0s<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/52725b43-2e45-4c6a-88ca-86e4e1056556)
 
@@ -690,8 +715,10 @@ print('verification time: ',t4-t3,'s')
 <br>
 <br>
 <br>
-*Project17：比较Firefox和谷歌的记住密码插件的实现区别<br>
+
+## *Project17：比较Firefox和谷歌的记住密码插件的实现区别<br>
 <br>
+### Firefox浏览器<br>
 在Firefox浏览器案例中，如果采用高强度的主密码，账号的细节资料是非常难获取的。<br>
 <br>
 Firefox浏览器，使用NSS的开源库中一个叫做”Security Decoder Ring”，或叫SDR的API来帮助实现账号证书的加密和解密函数。<br>
@@ -717,16 +744,19 @@ Pk11_Decrypt() //使用SDR密钥破译Base64编码的数据<br>
 
 <br>
 <br>
+
+### Chrome浏览器<br>
 而Chrome浏览器没有主密钥，更容易提取密码。Chrome浏览器加密后的密钥存储于%APPDATA%\..\Local\Google\Chrome\User Data\Default\Login Data”下的一个SQLite数据库中。密码是调用Windows API函数CryptProtectData来加密的。这意味着，只有用加密时使用的登陆证书，密码才能被恢复。破解密码，只需要调用Windows API中的CryptUnprotectData函数。<br>
 
 <br>
-代码思路：<br>
+
+#### 代码思路：<br>
 get_encryption_key()函数提取并解码用于加密密码的AES密钥，这"%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Local State"作为 JSON 文件存储在路径中。<br>
 decrypt_password() 将加密密码和 AES 密钥作为参数，并返回密码的解密版本。<br>
 在主函数中，我们使用get_encryption_key()函数获取加密密钥，然后我们将 sqlite 数据库（位于"%USERPROFILE%\AppData\Local\Google\Chrome\User Data\default\Login Data"保存密码的位置）复制到当前目录并连接到它，这是因为Chrome 当前正在运行，原始数据库文件将被锁定。之后，我们对登录表进行选择查询并遍历所有登录行，我们还解密每个密码date_created，完美提取Chrome浏览器保存的密码。最后，打印凭据并从当前目录中删除数据库副本。<br>
 <br>
 <br>
-实验环境：<br>
+#### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
@@ -734,7 +764,7 @@ decrypt_password() 将加密密码和 AES 密钥作为参数，并返回密码�
 代码语言：Python<br>
 <br>
 
-关键代码：<br>
+#### 关键代码：<br>
 
 ```python
 def get_encryption_key():
@@ -764,7 +794,7 @@ def decrypt_password(password, key):
             return ""
 ```
 
-运行结果：<br>
+#### 运行结果：<br>
 获得两个网站的密码的运行速度为0.03s<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/d6cdef8d-c61c-4686-92a8-4b5a29ff625a)
 
@@ -773,13 +803,15 @@ def decrypt_password(password, key):
 <br>
 <br>
 <br>
-*Project22: research report on MPT<br>
+
+## *Project22: research report on MPT<br>
 <br>
-一、MPT概述<br><br>
+
+### 一、MPT概述<br><br>
 MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于密码学验证的底层数据结构，是Ethereum用来存储区块数据的核心数据结构，用来存储键值对(key-value)关系。MPT是完全确定性的，这是指在一颗MPT上的一组键值对是唯一确定的，相同内容的键可以保证找到同样的值，并且有同样的根哈希( root hash)。MPT的插入、查找、删除操作的事件复杂度都是O(log(n))，相对于其它基于复杂比较的树结构(比如红黑树)，MPT更容易理解，也更易于编码实现。<br><br>
 
 
-二、MPT的基础<br><br>
+### 二、MPT的基础<br><br>
 1、 字典树 Trie<br>
 字典树（Trie）也称前缀树（prefix tree），是一种有序的树结构。其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。<br>
 <br>
@@ -821,7 +853,7 @@ MPT（Merkle Patricia Tree）就是Merkle Tree和Patricia Tree这两者混合后
 <br>
 相对于普通的前缀树，MPT树能有效减少Trie树的深度，增加Trie树的平衡性。而且通过节点的hash值进行树的节点的链接，有助于提高树的安全性和可验证性。<br>
 <br>
-三、MPT的基本结构<br>
+### 三、MPT的基本结构<br>
 1、 节点分类<br>
 MPT树中的节点包括空节点、叶子节点、扩展节点和分支节点：<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/6af9df05-f6fd-4005-b9e0-433aa2e4ccc5)
@@ -908,7 +940,7 @@ HP编码：16进制前缀编码，用于对数据库中树节点key进行编码�
 这样传入MPT接口的key是固定长度的（32字节），可以避免出现树中出现长度很长的路径；但是每次树操作需要增加一次哈希计算，并且需要在数据库中存储额外的sha3(key)与key之间的对应关系。<br>
 <br>
 
-四、MPT的功能——以太坊的轻节点扩展<br><br>
+### 四、MPT的功能——以太坊的轻节点扩展<br><br>
 MPT能够提供的一个重要功能——默克尔证明，使用默克尔证明能够实现轻节点的扩展。<br>
 <br>
 1、轻节点<br>
@@ -937,7 +969,8 @@ MPT能够提供的一个重要功能——默克尔证明，使用默克尔证�
 5、简单支付验证<br>
 在以太坊中，利用默克尔证明在轻节点中实现简单支付验证，即在无需维护具体交易信息的前提下，证明某一笔交易是否存在于区块链中。<br>
 <br>
-五、MPT在以太坊中的应用<br><br>
+
+### 五、MPT在以太坊中的应用<br><br>
 1、存储账户和合约状态：以太坊使用MPT来存储账户和合约的状态。每个账户都有一个唯一的地址，而该地址对应的状态数据存储在MPT中。通过MPT的哈希树结构，可以快速检索和验证特定账户的状态。<br>
 2、交易验证：以太坊的交易数据也使用MPT进行存储和验证。每个区块中的交易数据通过MPT的哈希树结构组织起来，其中每个叶节点存储着交易数据的哈希值。通过验证根节点的哈希值，可以确保交易数据的完整性和正确性。<br>
 3、存储合约代码：在以太坊中，智能合约的代码也是存储在MPT中的。合约代码被存储在特殊的账户中，通过账户地址和MPT的索引，可以快速检索和获取合约代码。<br>
