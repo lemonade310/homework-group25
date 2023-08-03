@@ -1,6 +1,6 @@
-#Project4: do your best to optimize SM3 implementation (software)
+# Project4: do your best to optimize SM3 implementation (software)
 
-运行环境：
+### 运行环境：
 
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
 
@@ -12,7 +12,7 @@
 
 代码语言：C++
 
-运行方法：
+### 运行方法：
 
 在VS2019中打开sm3.h头文件和sm3optimize.cpp源文件，运行即可。
 
