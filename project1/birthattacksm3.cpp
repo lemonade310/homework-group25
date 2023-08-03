@@ -4,10 +4,10 @@
 #include"sm3.h"
 
 using namespace std;
-//¸ù¾İÊä³öÖµÑ¡ÔñºÏÊÊ´óĞ¡µÄÈ¡Öµ·¶Î§
+//æ ¹æ®è¾“å‡ºå€¼é€‰æ‹©åˆé€‚å¤§å°çš„å–å€¼èŒƒå›´
 #define max_num 65537
 
-string list[max_num];  //½¨Á¢¹şÏ£Öµ¶ÔÓ¦±í
+string list[max_num];  //å»ºç«‹å“ˆå¸Œå€¼å¯¹åº”è¡¨
 bool sm3_birthday_attack() {
 	for (int i = 0; i < max_num; i++) {
 		string stri = to_string(i);
@@ -16,15 +16,15 @@ bool sm3_birthday_attack() {
 		list[i] = result;
 		for (int j = 0; j < i; j++) {
 			if (list[j].substr(0, 64) == result.substr(0, 64)) {
-				cout << "Åö×²Öµ:" << stri << endl;
-				cout << "Æä¹şÏ£ÖµÎª:" << endl;
+				cout << "ç¢°æ’å€¼:" << stri << endl;
+				cout << "å…¶å“ˆå¸Œå€¼ä¸º:" << endl;
 				for (int i = 0; i < 8; i++) {
 					cout << result.substr(8 * i, 8) << ' ';
 				}
 				cout << endl;
 				string strj = to_string(j);
-				cout << "Åö×²Öµ:" << strj << endl;
-				cout << "Æä¹şÏ£ÖµÎª:" << endl;
+				cout << "ç¢°æ’å€¼:" << strj << endl;
+				cout << "å…¶å“ˆå¸Œå€¼ä¸º:" << endl;
 				for (int i = 0; i < 8; i++) {
 					cout << list[j].substr(8 * i, 8) << ' ';
 				}
@@ -40,8 +40,8 @@ int main() {
 	clock_t time1, time2;
 	time1 = clock();
 	if (sm3_birthday_attack() == 0)
-		cout << "´Ë´ÎÉúÈÕ¹¥»÷Ê§°Ü£¡" << endl;
+		cout << "æ­¤æ¬¡ç”Ÿæ—¥æ”»å‡»å¤±è´¥ï¼" << endl;
 	time2 = clock();
-	cout << "ËùÓÃÊ±¼äÎª£º" << (time2 - time1) << "ms" << endl;
+	cout << "æ‰€ç”¨æ—¶é—´ä¸ºï¼š" << (time2 - time1) << "ms" << endl;
 	return 0;
 }
