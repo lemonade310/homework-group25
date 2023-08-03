@@ -72,10 +72,11 @@ bool sm3_birthday_attack() {
 因计算量过大，故以寻找哈希值前4字节相同为例，进行生日攻击。<br>
 运行速度为77s<br>
 <br>
-
-
-
-
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/2fe92a7b-85c3-41e7-876d-118d65deed32)
+<br>
+<br>
+<br>
+<br>
 <br>
 *Project2: implement the Rho method of reduced SM3<br>
 <br>
@@ -140,11 +141,13 @@ bool sm3_rho_attack() {
 运行结果：<br>
 因计算量过大，故以寻找哈希值前4字节相同为例，进行Pollard ρ攻击。<br>
 运行速度为137s<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/bedc2087-f2f1-4c84-8723-9b4e9f72864a)
+
 <br>
-
-
-
-
+<br>
+<br>
+<br>
+<br>
 <br>
 *Project3: implement length extension attack for SM3, SHA256, etc.<br>
 <br>
@@ -175,11 +178,14 @@ string sm3_len_extension_attack(string hash1,int len, string exstr) {
 运行结果：<br>
 以原始数据与扩展数据均为256bit为例<br>
 运行速度为0.001s<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/41c65db5-aa4a-4193-bc87-3ced7621d2c7)
+
 <br>
-
-
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 *Project4: do your best to optimize SM3 implementation (software)<br>
 <br>
@@ -188,12 +194,16 @@ string sm3_len_extension_attack(string hash1,int len, string exstr) {
 如图，str.size()在每次循环时都会被计算一次，但是该值在循环中是不改变的，所以我们可以通过将此计算的值赋给s，从而消除每次循环调用的低效率，而实现优化。<br>
 <br>
 关键代码：<br>
-
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/c312ff85-9429-4fa1-9343-ea043075a4b4)<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/4000a4b3-470c-49b7-bbfa-87379adedc8d)<br>
 
 <br>
 OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程程序设计方案，支持的编程语言包括C、C++和Fortran。OpenMP提供了对并行算法的高层抽象描述，通过线程实现并行化，特别适合在多核CPU机器上的并行程序设计。编译器根据程序中添加的pragma指令，自动将程序并行处理，使用OpenMP降低了并行编程的难度和复杂度。当编译器不支持OpenMP时，程序会退化成普通（串行）程序。程序中已有的OpenMP指令不会影响程序的正常编译运行。OpenMP可以实现多线程并行，提高程序的并行性，而实现优化。<br>
 <br>
 关键代码：<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/29c59bf9-76ef-4889-b817-29a7b19b111f)
+<br>
+
 
 <br>
 实验环境：<br>
@@ -203,20 +213,23 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 编译器：VS2019<br>
 代码语言：C++<br>
 <br>
-
+<br>
 
 运行结果：<br>
 以32字节数据进行压缩为例<br>
 优化后运行速度为0.177s<br>
-
-
-
-
-
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/e869b37a-92a7-45df-866b-74d247ff3554)
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 *Project5: Impl Merkle Tree following RFC6962<br>
 <br>
 默克尔树：默克尔树的最底下的一层节点是数据块，对每两个相邻的数据块取hash并将它们的值再次进行hash得到一个新的节点。再向上将得到的两个相邻的新节点的值做一次hash得到一个上层节点，直至最终得到一个根节点。默克尔树可以被用于验证任何类型的数据的存储。通常被用作与其他节点的计算机之间进行数据转移的数据完整性以及正确性的校验。<br>
+<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/ad2fa340-0dfa-4d8f-99c4-d7b56c7145b8)
 <br>
 比特币中的默克尔树应用：<br>
 在比特币中，默克尔树主要负责做交易打包的校验，在 block header 中保存了该区块中打包的所有交易组成的一颗默克尔树的根hash值。默克尔树的特性保证了一旦这个区块被链上其他的节点接受，成为最长有效链的一部分之后。这个节点中的交易就不会再被改变，因为一旦改变其中的交易，就会导致整棵树的根hash值产生变化，最终当前区块的hash值也会改变。这个区块就不会被其他节点接受。<br>
@@ -337,10 +350,12 @@ bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
 构建默克尔树的运行速度为5.1s，<br>
 验证的运行速度为1.5s。<br>
 <br>
-
-
-
-
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/ef2aed86-7fc8-481f-9a99-6735a18a798d)<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/47db45d0-d6e5-451e-b75b-f24c16829681)<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 *Project9: AES / SM4 software implementation<br>
 <br>
@@ -351,6 +366,7 @@ AES的密钥支持三种长度：AES128、AES192、AES256。密钥的长度决�
 最终轮有三个操作步骤：①字节代换、②行移位、③轮密钥加<br>
 以AES128为例，AES的加密公式为C=E(K,P)，在加密函数E中，会执行一个轮函数，并且执行10次这个轮函数，这个轮函数的前9次执行的操作是一样的，只有第10次有所不同。<br>
 <br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/dc3f975e-01d0-4a0d-bcfb-251a76773de8)
 
 <br>
 实验环境：<br>
@@ -456,11 +472,14 @@ void AddKeyRound(unsigned char parray[4][4], int round){
 运行结果：<br>
 以加密128bit数据为例<br>
 运行速度为0.001s。<br>
-
-
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/c6bc7576-b946-4b0a-9c75-a53d3fe18ff2)
+<br>
+<br>
+<br>
 <br>
 SM4算法是我国商用密码标准，是一个分组加密算法，分组长度和密钥长度均128bit。SM4算法使用32轮的非线性迭代结构。SM4在最后一轮非线性迭代之后加上了一个反序变换，因此SM4中只要解密密钥是加密密钥的逆序，它的解密算法与加密算法就可以保持一致。SM4的主体运算是非平衡Feistel网络。整体逻辑结构如图所示，经过32轮变换把明文变换为密文。<br>
-
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/e118424f-c520-4d4d-8e0f-cdb546a19e63)
+<br>
 <br>
 <br>
 密钥扩展算法<br>
@@ -537,10 +556,11 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
 以加密128bit数据为例<br>
 运行速度为0ms。<br>
 <br>
-
-
-
-
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/799ddf1c-c834-4a51-ad3b-2429693474d1)<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 *Project10: report on the application of this deduce technique in Ethereum with ECDSA<br>
 <br>
@@ -657,10 +677,11 @@ print('verification time: ',t4-t3,'s')
 <br>
 运行结果：<br>
 签名时间为0s，验证时间为0s<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/52725b43-2e45-4c6a-88ca-86e4e1056556)
 <br>
-
-
-
+<br>
+<br>
+<br>
 <br>
 *Project17：比较Firefox和谷歌的记住密码插件的实现区别<br>
 <br>
@@ -685,6 +706,8 @@ PK11_Authenticate() //使用主密码对slot鉴权<br>
 PK11_FindFixedKey() //从slot中获得SDR密钥<br>
 Pk11_Decrypt() //使用SDR密钥破译Base64编码的数据<br>
 <br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/d6149db9-9630-440b-9332-43e1969f66cc)
+
 <br>
 <br>
 而Chrome浏览器没有主密钥，更容易提取密码。Chrome浏览器加密后的密钥存储于%APPDATA%\..\Local\Google\Chrome\User Data\Default\Login Data”下的一个SQLite数据库中。密码是调用Windows API函数CryptProtectData来加密的。这意味着，只有用加密时使用的登陆证书，密码才能被恢复。破解密码，只需要调用Windows API中的CryptUnprotectData函数。<br>
@@ -736,6 +759,10 @@ def decrypt_password(password, key):
 
 运行结果：<br>
 获得两个网站的密码的运行速度为0.03s<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/d6cdef8d-c61c-4686-92a8-4b5a29ff625a)
+<br>
+<br>
+<br>
 <br>
 <br>
 *Project22: research report on MPT<br>
@@ -751,8 +778,9 @@ MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于
 键标注在节点中，值标注在节点之下。每一个完整的英文单词对应一个特定的整数。键不需要被显式地保存在节点中。图示中标注出完整的单词，只是为了演示trie的原理。trie中的键通常是字符串，但也可以是其它的结构。<br>
 <br>
 实际上trie每个节点是一个确定长度的数组，数组中每个节点的值是一个指向子节点的指针，最后有个标志域，标识这个位置为止是否是一个完整的字符串，并且有几个这样的字符串。常见的用来存英文单词的trie每个节点是一个长度为27的指针数组，index0-25代表a-z字符，26为标志域。<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/3ae65e70-2bf1-46b0-bd57-a29b5a81628d)
 <br>
-        <br>
+<br>
 字典树用于存储动态的集合或映射，其中的键通常是字符串，很多数据库的底层都采用的是树结构，以太坊最初的想法也是这样，但字典树还远远不够，主要问题是访问效率很低。<br>
 <br>
 
@@ -760,6 +788,7 @@ MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于
  Patricia树，或称Patricia trie，或crit bit tree，压缩前缀树，是一种更节省空间的Trie。如果一个基数树的“基数”（radix）为2或2的整数次幂，就被称为“帕特里夏树”，有时也直接认为帕特里夏树就是基数树。<br>
 <br>
 以太坊中采用Hex字符作为key的字符集，也就是基数为16的基数树，每个节点最多可以有16个子节点，再加上value，所以共有17个“插槽”（slot）位置。<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/26c16307-b172-4658-8c30-bdeedef489ac)
 <br>
 <br>
 帕特里夏树优化了访问效率，但还有一个问题没有解决。基数树节点之间的连接方式是指针，一般是用32位或64位的内存地址作为指针的值，比如C语言就是这么做的。但这种直接存地址的方式无法提供对数据内容的校验，而这在区块链这样的分布式系统中非常重要。<br>
@@ -771,6 +800,8 @@ MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于
 Merkle Tree，通常也被称作Hash Tree，顾名思义，就是存储hash值的一棵树。Merkle树的叶子是数据块(例如，文件或者文件的集合)的hash值。非叶节点是其对应子节点串联字符串的hash。<br>
 <br>
 梅克尔树就是最经典的解决数据校验的一种方式，用每个节点的hash值来建立对应的关系，底层的叶子节点都算一个hash，这是一个二叉树，两两hash之间再算一次hash，不断往上计算得出top hash算作一个根节点存到区块里面，去校验的时候，如果叶子节点发生改动，按照规则两两一hash计算得出的根节点会不一样，就知道数据发生了变动。<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/63eee6f6-a70c-421b-aa9b-69462fc09a8d)
+
 <br>
 梅克尔树可以实现数据校验，防止篡改。以太坊要去做hash的是整个要存储内容的RLP编码，所以以太坊相当于把自己的value先做RLP编码，然后再去求hash，然后把最后得到的hash值作为在数据库中存储的位置，所以在MPT中的节点里面用hash作为key，访问的的时候根据hash在数据库中找到对应的值。<br>
 <br>
@@ -783,11 +814,15 @@ MPT（Merkle Patricia Tree）就是Merkle Tree和Patricia Tree这两者混合后
 三、MPT的基本结构<br>
 1、 节点分类<br>
 MPT树中的节点包括空节点、叶子节点、扩展节点和分支节点：<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/6af9df05-f6fd-4005-b9e0-433aa2e4ccc5)
+<br>
 <br>
 ·空节点（NULL）：简单的表示空，在代码中是一个空串。<br>
 ·叶子节点（leaf）：表示为[key,value]的一个键值对，其中key是key的一种特殊十六进制编码，value是value的RLP编码。<br>
 ·扩展节点（extension）：也是[key，value]的一个键值对，但是这里的value是其他节点的hash值，这个hash可以被用来查询数据库中的节点。也就是说通过hash链接到其他节点。<br>
 ·分支节点（branch）：因为MPT树中的key被编码成一种特殊的16进制的表示，再加上最后的value，所以分支节点是一个长度为17的list，前16个元素对应着key中的16个可能的十六进制字符，如果有一个[key,value]对在这个分支节点终止，最后一个元素代表一个值，即分支节点既可以搜索路径的终止也可以是路径的中间节点。<br>
+<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/39c68581-2c34-468b-bb35-c46a8b6b9a24)
 
 <br>
 如图所示:<br>
@@ -796,8 +831,12 @@ MPT节点有不同的类型，先从上面开始看，最上面是根节点，�
  然后后面存一个hash指向下一个节点。下一个节点是一个分支节点，因为我们发现这个地方没法去压缩路径，因为他有不同的路径出现，所以就岔开了。分支节点里面1这个插槽对应的是一个叶子节点，前缀是2，因为他后面压缩的路径是偶数并且是叶子节点， 后面还有value，所以我们这里存的从根节点到分支节点，再到叶子节点。表示了一个什么键值对存储呢，他的key就是这个路径，从前面压缩出来的路径a7，然后往下走到1，然后1355，他的值是45eth，所以要存储的键是:a711355，值是45这样一个键值对，在MPT中就是这样组织存储。<br>
 <br>
 总共有2个扩展节点，2个分支节点，4个叶子节点。<br>
-其中叶子结点的键值情况为：<br>               节点的前缀：<br>
-<br>     
+其中叶子结点的键值情况为：<br> 
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/699ca7e3-0348-4fac-8b09-c4c879bde3d3)
+<br>
+节点的前缀：<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/4e59ad09-d1b3-4de8-8347-d7acafb7cd55)
+<br>  
 <br>
 2、 key值编码<br>
 在以太坊中，MPT树的key值共有三种不同的编码方式，以满足不同场景的不同需求，三种编码方式分别为：<br>
@@ -805,12 +844,12 @@ MPT节点有不同的类型，先从上面开始看，最上面是根节点，�
 ·Hex编码（扩展的16进制编码）<br>
 ·Hex-Prefix编码（16进制前缀编码）<br>
 <br>
-①Raw编码<br>
+ ①Raw编码<br>
 Raw编码就是原生的key值，不做任何改变。这种编码方式的key，是MPT对外提供接口的默认编码方式。<br>
 <br>
 例如一条key为“cat”，value为“dog”的数据项，其Raw编码就是['c', 'a', 't']，换成ASCII表示方式就是[63, 61, 74]<br>
 <br>
-②Hex编码<br>
+ ②Hex编码<br>
 为了减少分支节点孩子的个数，需要将key的编码进行转换，将原key的高低四位分拆成两个字节进行存储。这种转换后的key的编码方式，就是Hex编码。<br>
 <br>
 从Raw编码向Hex编码的转换规则是：<br>
@@ -822,7 +861,7 @@ key为“cat”, value为“dog”的数据项，其Hex编码为[3, 15, 3, 13, 4
 <br>
 Hex编码用于对内存中MPT树节点key进行编码<br>
 <br>
-③HP编码<br>
+ ③HP编码<br>
 叶子／扩展节点这两种节点定义是共享的，即便持久化到数据库中，存储的方式也是一致的。那么当节点加载到内存是，同样需要通过一种额外的机制来区分节点的类型。于是以太坊就提出了一种HP编码对存储在数据库中的叶子／扩展节点的key进行编码区分。在将这两类节点持久化到数据库之前，首先会对该节点的key做编码方式的转换，即从Hex编码转换成HP编码。<br>
 <br>
 HP编码的规则如下：<br>
@@ -834,13 +873,13 @@ HP编码的规则如下：<br>
 <br>
 HP编码用于对数据库中的树节点key进行编码<br>
 <br>
-④转换关系<br>
+ ④转换关系<br>
 以上三种编码方式的转换关系为：<br>
 Raw编码：原生的key编码，是MPT对外提供接口中使用的编码方式，当数据项被插入到树中时，Raw编码被转换成Hex编码；<br>
 Hex编码：16进制扩展编码，用于对内存中树节点key进行编码，当树节点被持久化到数据库时，Hex编码被转换成HP编码；<br>
 HP编码：16进制前缀编码，用于对数据库中树节点key进行编码，当树节点被加载到内存时，HP编码被转换成Hex编码；<br>
 <br>
-<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/c57fe5fe-780e-44a1-ad4d-f435cbf8b28a)
 <br>
 
 <br>
@@ -868,6 +907,7 @@ MPT能够提供的一个重要功能——默克尔证明，使用默克尔证�
 <br>
 3、默克尔证明过程<br>
 如有棵如下图所示的merkle树，如果某个轻节点想要验证9Dog:64这个树节点是否存在与默克尔树中，只需要向全节点发送该请求，全节点会返回一个1FXq:18,ec20,8f74的一个路径（默克尔路径，如图2黄色框所表示的）。得到路径之后，轻节点利用9Dog:64与1FXq:18求哈希，在与ec20求哈希，最后与8f74求哈希，得到的结果与本地维护的根哈希相比，是否相等。<br>
+![image](https://github.com/lemonade310/homework-group25/assets/139195261/48faa191-2ea2-4d16-8ac8-bdd5ef14f990)
 
 <br>
 <br>
