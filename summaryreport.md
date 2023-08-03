@@ -3,14 +3,6 @@
 
 2023年春季学期《创新创业实践课》实验报告<br>
 
-
-
-姓名：李直桐<br>
-组别：25<br>
-班级： 密码21.1<br>
-学号：202100460076<br>
-<br>
-
 <br>
 25组人员分工表：<br>
 姓名：李直桐 <br>
@@ -18,7 +10,7 @@
 负责project：1,2,3,4,5,9,10,17,22<br>
 
 <br>
-*Project1: implement the naïve birthday attack of reduced SM3<br>
+##*Project1: implement the naïve birthday attack of reduced SM3<br>
 <br>
 生日攻击：寻找哈希函数的具有相同输出的两个任意输入，即寻找碰撞。<br>
 如生日悖论中所描述的，对于哈希函数H(x)，有2^m个可能的输出，那么至少有两个输入产生相同输出的概率大于0.5，则选取的随机输入数量为2^(m/2)。<br>
@@ -79,7 +71,7 @@ bool sm3_birthday_attack() {
 <br>
 <br>
 <br>
-*Project2: implement the Rho method of reduced SM3<br>
+##*Project2: implement the Rho method of reduced SM3<br>
 <br>
 Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其中f是多项式函数，此处选择f(x)=2*x+1，必然会形成一个环。通过多项式迭代产生数列，从中寻找整数x1和x2满足H(x1)=H(x2)。<br>
 <br>
@@ -150,7 +142,7 @@ bool sm3_rho_attack() {
 <br>
 <br>
 <br>
-*Project3: implement length extension attack for SM3, SHA256, etc.<br>
+##*Project3: implement length extension attack for SM3, SHA256, etc.<br>
 <br>
 长度扩展攻击：假设我们有两段数据S和M以及单向散列函数h，其中S是机密信息。我们通过hash=h(S||M)计算hash值,通过计数数据的hash与原始hash对比来校验数据是否可靠。<br>
 <br>
@@ -188,7 +180,7 @@ string sm3_len_extension_attack(string hash1,int len, string exstr) {
 <br>
 <br>
 <br>
-*Project4: do your best to optimize SM3 implementation (software)<br>
+##*Project4: do your best to optimize SM3 implementation (software)<br>
 <br>
 软件优化：我们可以通过消除循环的低效率、减少过程调用、循环展开、提高并行性等方法对代码进行优化，从而加速代码计算速度，提高代码的运行效率，实现代码的软件优化。<br>
 <br>
