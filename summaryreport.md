@@ -228,6 +228,7 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 ## *Project5: Impl Merkle Tree following RFC6962<br>
 <br>
 默克尔树：默克尔树的最底下的一层节点是数据块，对每两个相邻的数据块取hash并将它们的值再次进行hash得到一个新的节点。再向上将得到的两个相邻的新节点的值做一次hash得到一个上层节点，直至最终得到一个根节点。默克尔树可以被用于验证任何类型的数据的存储。通常被用作与其他节点的计算机之间进行数据转移的数据完整性以及正确性的校验。<br>
+
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/ad2fa340-0dfa-4d8f-99c4-d7b56c7145b8)
 
 <br>
