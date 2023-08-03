@@ -144,7 +144,6 @@ bool sm3_rho_attack() {
 <br>
 <br>
 <br>
-<br>
 
 ## *Project3: implement length extension attack for SM3, SHA256, etc.<br>
 <br>
@@ -225,18 +224,15 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 <br>
 <br>
 <br>
-<br>
 
 ## *Project5: Impl Merkle Tree following RFC6962<br>
 <br>
 默克尔树：默克尔树的最底下的一层节点是数据块，对每两个相邻的数据块取hash并将它们的值再次进行hash得到一个新的节点。再向上将得到的两个相邻的新节点的值做一次hash得到一个上层节点，直至最终得到一个根节点。默克尔树可以被用于验证任何类型的数据的存储。通常被用作与其他节点的计算机之间进行数据转移的数据完整性以及正确性的校验。<br>
-<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/ad2fa340-0dfa-4d8f-99c4-d7b56c7145b8)
 
 <br>
 比特币中的默克尔树应用：<br>
 在比特币中，默克尔树主要负责做交易打包的校验，在 block header 中保存了该区块中打包的所有交易组成的一颗默克尔树的根hash值。默克尔树的特性保证了一旦这个区块被链上其他的节点接受，成为最长有效链的一部分之后。这个节点中的交易就不会再被改变，因为一旦改变其中的交易，就会导致整棵树的根hash值产生变化，最终当前区块的hash值也会改变。这个区块就不会被其他节点接受。<br>
-<br>
 <br>
 
 #### 实验环境：<br>
@@ -357,7 +353,6 @@ bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
 哈希函数以SM3为例，输入8组数据，<br>
 构建默克尔树的运行速度为5.1s，<br>
 验证的运行速度为1.5s。<br>
-<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/ef2aed86-7fc8-481f-9a99-6735a18a798d)
 
 <br>
@@ -369,17 +364,17 @@ bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
 <br>
 <br>
 <br>
-<br>
 
 ## *Project9: AES / SM4 software implementation<br>
 <br>
+
+### AES<br>
 AES为分组密码，分组密码也就是把明文分成一组一组的，每组长度相等，每次加密一组数据，直到将整个明文加密完成。<br>
 AES的密钥支持三种长度：AES128、AES192、AES256。密钥的长度决定了AES加密的轮数，并且不同阶段的有不同的处理步骤，AES的核心就是实现一轮中的所有操作。我们可以将不同轮次分为初始轮、普通轮、最终轮。<br>
 初始轮它只做一个操作：轮密钥加<br>
 普通轮有四个操作步骤：①字节代换、②行移位、③列混淆、④轮密钥加<br>
 最终轮有三个操作步骤：①字节代换、②行移位、③轮密钥加<br>
 以AES128为例，AES的加密公式为C=E(K,P)，在加密函数E中，会执行一个轮函数，并且执行10次这个轮函数，这个轮函数的前9次执行的操作是一样的，只有第10次有所不同。<br>
-<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/dc3f975e-01d0-4a0d-bcfb-251a76773de8)
 
 <br>
@@ -487,7 +482,6 @@ void AddKeyRound(unsigned char parray[4][4], int round){
 ```
 
 <br>
-<br>
 
 #### 运行结果：<br>
 以加密128bit数据为例<br>
@@ -498,6 +492,8 @@ void AddKeyRound(unsigned char parray[4][4], int round){
 <br>
 <br>
 <br>
+
+### SM4<br>
 SM4算法是我国商用密码标准，是一个分组加密算法，分组长度和密钥长度均128bit。SM4算法使用32轮的非线性迭代结构。SM4在最后一轮非线性迭代之后加上了一个反序变换，因此SM4中只要解密密钥是加密密钥的逆序，它的解密算法与加密算法就可以保持一致。SM4的主体运算是非平衡Feistel网络。整体逻辑结构如图所示，经过32轮变换把明文变换为密文。<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/e118424f-c520-4d4d-8e0f-cdb546a19e63)
 
@@ -511,7 +507,7 @@ SM4 密码算法采用 32 轮的迭代加密结构，拥有 128 位加密密钥�
 ②For i=0,1,…,30,31 Do<br>
 rki=K(i+4)=Ki⊕T’(K(i+1)⊕K(i+2)⊕K(i+3)⊕CKi)<br>
 <br>
-<br>
+
 #### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
@@ -649,7 +645,7 @@ Secp256k1是指比特币中使用的ECDSA(椭圆曲线数字签名算法)曲线�
 <br>
 ### 四、该推导技术在以太坊ECDSA中的应用<br>
 1、密钥生成<br>
-传统的ECDSA密钥生成过程包括选择一个随机数k，并计算公钥Q=k*G，其中G是基点。然而，选择合适的随机数k是一个困难的问题，因为k的选择会影响到私钥的安全性。推导技术通过优化随机数的选择过程，可以减少私钥被猜测的风险，从而提高密钥生成的效率和安全性。<br>
+传统的ECDSA密钥生成过程包括选择一个随机数k，并计算公钥Q=k*\G，其中G是基点。然而，选择合适的随机数k是一个困难的问题，因为k的选择会影响到私钥的安全性。推导技术通过优化随机数的选择过程，可以减少私钥被猜测的风险，从而提高密钥生成的效率和安全性。<br>
 2、签名验证<br>
 传统的ECDSA签名验证过程包括计算一个点R=r*G，并将其x坐标与签名中的r进行比较。然而，这个比较操作需要进行一次椭圆曲线点的加法运算，导致了一定的计算开销。推导技术通过优化签名验证过程中的计算步骤，可以减少计算开销，提高签名验证的效率。<br>
 <br>
@@ -740,7 +736,6 @@ PK11_GetInternalKeySlot() //得到内部key槽<br>
 PK11_Authenticate() //使用主密码对slot鉴权<br>
 PK11_FindFixedKey() //从slot中获得SDR密钥<br>
 Pk11_Decrypt() //使用SDR密钥破译Base64编码的数据<br>
-<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/d6149db9-9630-440b-9332-43e1969f66cc)
 
 <br>
@@ -748,7 +743,6 @@ Pk11_Decrypt() //使用SDR密钥破译Base64编码的数据<br>
 
 ### Chrome浏览器<br>
 而Chrome浏览器没有主密钥，更容易提取密码。Chrome浏览器加密后的密钥存储于%APPDATA%\..\Local\Google\Chrome\User Data\Default\Login Data”下的一个SQLite数据库中。密码是调用Windows API函数CryptProtectData来加密的。这意味着，只有用加密时使用的登陆证书，密码才能被恢复。破解密码，只需要调用Windows API中的CryptUnprotectData函数。<br>
-
 <br>
 
 #### 代码思路：<br>
@@ -756,7 +750,7 @@ get_encryption_key()函数提取并解码用于加密密码的AES密钥，这"%U
 decrypt_password() 将加密密码和 AES 密钥作为参数，并返回密码的解密版本。<br>
 在主函数中，我们使用get_encryption_key()函数获取加密密钥，然后我们将 sqlite 数据库（位于"%USERPROFILE%\AppData\Local\Google\Chrome\User Data\default\Login Data"保存密码的位置）复制到当前目录并连接到它，这是因为Chrome 当前正在运行，原始数据库文件将被锁定。之后，我们对登录表进行选择查询并遍历所有登录行，我们还解密每个密码date_created，完美提取Chrome浏览器保存的密码。最后，打印凭据并从当前目录中删除数据库副本。<br>
 <br>
-<br>
+
 #### 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
 内存：16GB LPDDR4<br>
@@ -809,7 +803,7 @@ def decrypt_password(password, key):
 <br>
 
 ### 一、MPT概述<br><br>
-MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于密码学验证的底层数据结构，是Ethereum用来存储区块数据的核心数据结构，用来存储键值对(key-value)关系。MPT是完全确定性的，这是指在一颗MPT上的一组键值对是唯一确定的，相同内容的键可以保证找到同样的值，并且有同样的根哈希( root hash)。MPT的插入、查找、删除操作的事件复杂度都是O(log(n))，相对于其它基于复杂比较的树结构(比如红黑树)，MPT更容易理解，也更易于编码实现。<br><br>
+MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于密码学验证的底层数据结构，是Ethereum用来存储区块数据的核心数据结构，用来存储键值对(key-value)关系。MPT是完全确定性的，这是指在一颗MPT上的一组键值对是唯一确定的，相同内容的键可以保证找到同样的值，并且有同样的根哈希(root hash)。MPT的插入、查找、删除操作的事件复杂度都是O(log(n))，相对于其它基于复杂比较的树结构(比如红黑树)，MPT更容易理解，也更易于编码实现。<br><br>
 
 
 ### 二、MPT的基础<br><br>
@@ -820,7 +814,7 @@ MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于
 <br>
 实际上trie每个节点是一个确定长度的数组，数组中每个节点的值是一个指向子节点的指针，最后有个标志域，标识这个位置为止是否是一个完整的字符串，并且有几个这样的字符串。常见的用来存英文单词的trie每个节点是一个长度为27的指针数组，index0-25代表a-z字符，26为标志域。<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/3ae65e70-2bf1-46b0-bd57-a29b5a81628d)
-<br>
+
 <br>
 字典树用于存储动态的集合或映射，其中的键通常是字符串，很多数据库的底层都采用的是树结构，以太坊最初的想法也是这样，但字典树还远远不够，主要问题是访问效率很低。<br>
 <br>
@@ -832,10 +826,7 @@ MPT(Merkel-Patricia Tree，梅克尔-帕特里夏树)，MPT提供了一个基于
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/26c16307-b172-4658-8c30-bdeedef489ac)
 
 <br>
-<br>
 帕特里夏树优化了访问效率，但还有一个问题没有解决。基数树节点之间的连接方式是指针，一般是用32位或64位的内存地址作为指针的值，比如C语言就是这么做的。但这种直接存地址的方式无法提供对数据内容的校验，而这在区块链这样的分布式系统中非常重要。<br>
-
-<br>
 <br>
 
 #### 3、Merkle树<br>
@@ -854,18 +845,18 @@ MPT（Merkle Patricia Tree）就是Merkle Tree和Patricia Tree这两者混合后
 <br>
 相对于普通的前缀树，MPT树能有效减少Trie树的深度，增加Trie树的平衡性。而且通过节点的hash值进行树的节点的链接，有助于提高树的安全性和可验证性。<br>
 <br>
+
 ### 三、MPT的基本结构<br>
 #### 1、 节点分类<br>
 MPT树中的节点包括空节点、叶子节点、扩展节点和分支节点：<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/6af9df05-f6fd-4005-b9e0-433aa2e4ccc5)
 
 <br>
-<br>
 ·空节点（NULL）：简单的表示空，在代码中是一个空串。<br>
 ·叶子节点（leaf）：表示为[key,value]的一个键值对，其中key是key的一种特殊十六进制编码，value是value的RLP编码。<br>
 ·扩展节点（extension）：也是[key，value]的一个键值对，但是这里的value是其他节点的hash值，这个hash可以被用来查询数据库中的节点。也就是说通过hash链接到其他节点。<br>
 ·分支节点（branch）：因为MPT树中的key被编码成一种特殊的16进制的表示，再加上最后的value，所以分支节点是一个长度为17的list，前16个元素对应着key中的16个可能的十六进制字符，如果有一个[key,value]对在这个分支节点终止，最后一个元素代表一个值，即分支节点既可以搜索路径的终止也可以是路径的中间节点。<br>
-<br>
+
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/39c68581-2c34-468b-bb35-c46a8b6b9a24)
 
 <br>
@@ -876,14 +867,15 @@ MPT节点有不同的类型，先从上面开始看，最上面是根节点，�
 <br>
 总共有2个扩展节点，2个分支节点，4个叶子节点。<br>
 其中叶子结点的键值情况为：<br> 
+
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/699ca7e3-0348-4fac-8b09-c4c879bde3d3)
 
 <br>
 节点的前缀：<br>
+
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/4e59ad09-d1b3-4de8-8347-d7acafb7cd55)
 
 <br>  
-<br>
 
 #### 2、 key值编码<br>
 在以太坊中，MPT树的key值共有三种不同的编码方式，以满足不同场景的不同需求，三种编码方式分别为：<br>
@@ -957,8 +949,6 @@ MPT能够提供的一个重要功能——默克尔证明，使用默克尔证�
 如有棵如下图所示的merkle树，如果某个轻节点想要验证9Dog:64这个树节点是否存在与默克尔树中，只需要向全节点发送该请求，全节点会返回一个1FXq:18,ec20,8f74的一个路径（默克尔路径，如图2黄色框所表示的）。得到路径之后，轻节点利用9Dog:64与1FXq:18求哈希，在与ec20求哈希，最后与8f74求哈希，得到的结果与本地维护的根哈希相比，是否相等。<br>
 ![image](https://github.com/lemonade310/homework-group25/assets/139195261/48faa191-2ea2-4d16-8ac8-bdd5ef14f990)
 
-<br>
-<br>
 <br>
 
 #### 4、默克尔证明安全性<br>
