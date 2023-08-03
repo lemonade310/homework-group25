@@ -35,35 +35,36 @@
 代码语言：C++<br>
 <br>
 关键代码：<br>
-1.string list[max_num];  //建立哈希值对应表  
-2.bool sm3_birthday_attack() {  
-3.    for (int i = 0; i < max_num; i++) {  
-4.        string stri = to_string(i);  
-5.        string paddingValue = padding(stri);  
-6.        string result = iteration(paddingValue);  
-7.        list[i] = result;  
-8.        for (int j = 0; j < i; j++) {  
-9.            if (list[j].substr(0, 64)==result.substr(0, 64)) {  
-10.                cout << "碰撞值:" << stri << endl;  
-11.                cout << "其哈希值为:" << endl;  
-12.                for (int i = 0; i < 8; i++) {  
-13.                    cout << result.substr(8 * i, 8) << ' ';  
-14.                }  
-15.                cout << endl;  
-16.                string strj = to_string(j);  
-17.                cout << "碰撞值:" << strj << endl;  
-18.                cout << "其哈希值为:" << endl;  
-19.                for (int i = 0; i < 8; i++) {  
-20.                    cout << list[j].substr(8 * i, 8) << ' ';  
-21.                }  
-22.                cout << endl;  
-23.                cout << "此次共计寻找:" << i << "个数" << endl;  
-24.                return 1;  
-25.            }  
-26.        }  
-27.    }  
-28.    return 0;  
-29.}  
+```C++
+string list[max_num];  //建立哈希值对应表
+bool sm3_birthday_attack() {
+	for (int i = 0; i < max_num; i++) {
+		string stri = to_string(i);
+		string paddingValue = padding(stri);
+		string result = iteration(paddingValue);
+		list[i] = result;
+		for (int j = 0; j < i; j++) {
+			if (list[j].substr(0, 64) == result.substr(0, 64)) {
+				cout << "碰撞值:" << stri << endl;
+				cout << "其哈希值为:" << endl;
+				for (int i = 0; i < 8; i++) {
+					cout << result.substr(8 * i, 8) << ' ';
+				}
+				cout << endl;
+				string strj = to_string(j);
+				cout << "碰撞值:" << strj << endl;
+				cout << "其哈希值为:" << endl;
+				for (int i = 0; i < 8; i++) {
+					cout << list[j].substr(8 * i, 8) << ' ';
+				}
+				cout << endl;
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+```
 
 <br>
 运行结果：<br>
@@ -91,46 +92,48 @@ Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其�
 代码语言：C++<br>
 <br>
 关键代码：<br>
-1.string lista[max_num];  //用于存储原消息值  
-2.string listb[max_num];  //用于存储对应哈希值  
-3.bool sm3_rho_attack() {  
-4.    int rho = 0;  
-5.    int start = 0;  
-6.    for (int i = 0; i < max_num; i++) {  
-7.        if (rho != -1) {  
-8.            rho = 2* rho + 1;   //设定f(x)=2*x+1  
-9.        }  
-10.        else {//超过int的最大范围时，重新设定rho  
-11.            start += 1;  
-12.            rho = start;  
-13.        }  
-14.        string stri = to_string(rho);  
-15.        lista[i] = stri;  //原消息值  
-16.        string paddingValue = padding(stri);  
-17.        string result = iteration(paddingValue);  
-18.        listb[i] = result;  //对应哈希值  
-19.  
-20.        for (int j = 0; j < i; j++) {  
-21.            if (listb[j].substr(0, 64) == result.substr(0, 64) && stri != lista[j]) {  
-22.                cout << "碰撞值:" << stri << endl;  
-23.                cout << "其哈希值为:" << endl;  
-24.                for (int i = 0; i < 8; i++) {  
-25.                    cout << result.substr(8 * i, 8) << ' ';  
-26.                }  
-27.                cout << endl;  
-28.                  
-29.                cout << "碰撞值:" << lista[j] << endl;  
-30.                cout << "其哈希值为:" << endl;  
-31.                for (int i = 0; i < 8; i++) {  
-32.                    cout << listb[j].substr(8 * i, 8) << ' ';  
-33.                }  
-34.                cout << endl;  
-35.                return 1;  
-36.            }  
-37.        }  
-38.    }  
-39.    return 0;  
-40.}  
+```C++
+string lista[max_num];  //用于存储原消息值
+string listb[max_num];  //用于存储对应哈希值
+bool sm3_rho_attack() {
+	int rho = 0;
+	int start = 0;
+	for (int i = 0; i < max_num; i++) {
+		if (rho != -1) {
+			rho = 2* rho + 1;	//设定f(x)=2*x+1
+		}
+		else {//超过int的最大范围时，重新设定rho
+			start += 1;
+			rho = start;
+		}
+		string stri = to_string(rho);
+		lista[i] = stri;  //原消息值
+		string paddingValue = padding(stri);
+		string result = iteration(paddingValue);
+		listb[i] = result;  //对应哈希值
+
+		for (int j = 0; j < i; j++) {
+			if (listb[j].substr(0, 64) == result.substr(0, 64) && stri != lista[j]) {
+				cout << "碰撞值:" << stri << endl;
+				cout << "其哈希值为:" << endl;
+				for (int i = 0; i < 8; i++) {
+					cout << result.substr(8 * i, 8) << ' ';
+				}
+				cout << endl;
+				
+				cout << "碰撞值:" << lista[j] << endl;
+				cout << "其哈希值为:" << endl;
+				for (int i = 0; i < 8; i++) {
+					cout << listb[j].substr(8 * i, 8) << ' ';
+				}
+				cout << endl;
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+```
 
 运行结果：<br>
 因计算量过大，故以寻找哈希值前4字节相同为例，进行Pollard ρ攻击。<br>
@@ -156,14 +159,14 @@ Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其�
 代码语言：C++<br>
 <br>
 关键代码：<br>
-
-1.string sm3_len_extension_attack(string hash1,int len, string exstr) {  
-2.    string paddingvalue = padding(exstr);//扩展消息填充  
-3.    string newstr = DecToHex(HexToDec(paddingvalue) + len);//将扩展的消息与原始长度组装在一起  
-4.    string hash2 = new_iteration(newstr, hash1);  //将原始哈希值作为IV对其进行迭代压缩  
-5.    return hash2;  
-6.}  
-
+```C++
+string sm3_len_extension_attack(string hash1,int len, string exstr) {
+	string paddingvalue = padding(exstr);//扩展消息填充
+	string newstr = DecToHex(HexToDec(paddingvalue) + len);//将扩展的消息与原始长度组装在一起
+	string hash2 = new_iteration(newstr, hash1);  //将原始哈希值作为IV对其进行迭代压缩
+	return hash2;
+}
+```
 
 
 运行结果：<br>
@@ -215,12 +218,6 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 比特币中的默克尔树应用：<br>
 在比特币中，默克尔树主要负责做交易打包的校验，在 block header 中保存了该区块中打包的所有交易组成的一颗默克尔树的根hash值。默克尔树的特性保证了一旦这个区块被链上其他的节点接受，成为最长有效链的一部分之后。这个节点中的交易就不会再被改变，因为一旦改变其中的交易，就会导致整棵树的根hash值产生变化，最终当前区块的hash值也会改变。这个区块就不会被其他节点接受。<br>
 <br>
-代码思路：<br>
-建立节点类与默克尔树类，完善相应函数部分，对于默克尔树，重要部分为建立叶子结点列表、构造默克尔树与验证数据三部分。<br>
-<br>
-函数BuildLeaves()用于建立叶子结点列表，输入建立默克尔树的基础字符串，装入容器vector中，计算每个字符串的哈希值，作为叶子结点，压入结点列表中。<br>
-函数BuildTree()用于构建Merkle Tree，循环中每次传入结点列表的一列，计算相邻两个结点的哈希值，作为父节点，直至得到根节点。<br>
-
 <br>
 实验环境：<br>
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz<br>
@@ -229,90 +226,107 @@ OpenMP(Open Multi-Processing)是一种用于共享内存并行系统的多线程
 编译器：VS2019<br>
 代码语言：C++<br>
 <br>
+
+代码思路：<br>
+建立节点类与默克尔树类，完善相应函数部分，对于默克尔树，重要部分为建立叶子结点列表、构造默克尔树与验证数据三部分。<br>
+<br>
+函数BuildLeaves()用于建立叶子结点列表，输入建立默克尔树的基础字符串，装入容器vector中，计算每个字符串的哈希值，作为叶子结点，压入结点列表中。<br>
+函数BuildTree()用于构建Merkle Tree，循环中每次传入结点列表的一列，计算相邻两个结点的哈希值，作为父节点，直至得到根节点。<br>
+
+
 关键代码：<br>
-1.void MerkleTree::BuildLeaves(vector<string> base_leaf){  //建立叶子节点列表  
-2.    vector<node*> new_leaf;  
-3.  
-4.    for (auto leaf : base_leaf) { //给每一个字符串创建对应节点，并通过这个字符串设置哈希值  
-5.        node* new_node = new node;  
-6.        new_node->setHash(leaf);  
-7.        new_leaf.push_back(new_node);  
-8.    }  
-9.  
-10.    nodelist.push_back(new_leaf);//将叶子结点压入结点列表中  
-11.    cout << endl;  
-12.}  
-13.  
-14.void MerkleTree::BuildTree() { //构造Merkle Tree  
-15.    int count = 1;  
-16.    do{  
-17.        vector<node*> new_nodes;  
-18.        makeBinary(nodelist.end()[-1]); //传入尾元素 即一个节点列表  
-19.        cout << "第"<<count<<"层结点由左至右为:" << endl;  
-20.        printTreeLevel(nodelist.end()[-1]);//打印该层结点  
-21.        cout << endl;  
-22.        for (int i = 0; i < nodelist.end()[-1].size(); i += 2){  
-23.            node* new_parent = new node; //设置父亲节点  
-24.            //将列表的第i和第i+1个结点的父节点设置为new_parent  
-25.            nodelist.end()[-1][i]->setParent(new_parent);  
-26.            nodelist.end()[-1][i + 1]->setParent(new_parent);  
-27.  
-28.            //父节点哈希值=Hash(左孩子+右孩子)  
-29.            new_parent->setHash(nodelist.end()[-1][i]->getHash() + nodelist.end()[-1][i + 1]->getHash());  
-30.            //将该父节点的左右孩子节点设置为第i和第i+1个结点  
-31.            new_parent->setChildren(nodelist.end()[-1][i], nodelist.end()[-1][i + 1]);  
-32.            //将new_parent压入new_nodes  
-33.            new_nodes.push_back(new_parent);  
-34.        }  
-35.          
-36.        nodelist.push_back(new_nodes); //将新一轮的父节点new_nodes压入nodelist  
-37.        count++;  
-38.  
-39.    } while (nodelist.end()[-1].size() > 1); //这样每一轮得到新一层的父节点，直至得到根节点，退出循环  
-40.    cout << "第" << count << "层结点由左至右为:" << endl;  
-41.    printTreeLevel(nodelist.end()[-1]);  
-42.    cout << endl;  
-43.  
-44.    cout << "该默克尔树共" << count << "层" << endl;  
-45.    MerkleRoot = nodelist.end()[-1][0]->getHash(); //根节点的哈希值  
-46.    cout << "根节点为：" << MerkleRoot << endl << endl;  
-47.}  
+```C++
+void MerkleTree::BuildLeaves(vector<string> base_leaf) { //建立叶子节点列表
+	vector<node*> new_leaf;
+
+	//cout << "叶子结点及对应的哈希值：" << endl;
+
+	for (auto leaf : base_leaf) { //给每一个字符串创建对应节点，并通过这个字符串设置哈希值
+		node* new_node = new node;
+		new_node->setHash(leaf);
+		//cout << leaf <<"的哈希值为："<< new_node->getHash() << endl;
+
+		new_leaf.push_back(new_node);
+	}
+
+	nodelist.push_back(new_leaf);//将叶子结点压入结点列表中
+	cout << endl;
+}
+
+void MerkleTree::BuildTree() { //构造Merkle Tree
+	int count = 1;
+	do{
+		vector<node*> new_nodes;
+		makeBinary(nodelist.end()[-1]); //传入尾元素 即一个节点列表
+		cout << "第"<<count<<"层结点由左至右为:" << endl;
+		printTreeLevel(nodelist.end()[-1]);//打印该层结点
+		cout << endl;
+		for (int i = 0; i < nodelist.end()[-1].size(); i += 2){
+			node* new_parent = new node; //设置父亲节点
+			//将列表的第i和第i+1个结点的父节点设置为new_parent
+			nodelist.end()[-1][i]->setParent(new_parent);
+			nodelist.end()[-1][i + 1]->setParent(new_parent);
+
+			//父节点哈希值=Hash(左孩子+右孩子)
+			new_parent->setHash(nodelist.end()[-1][i]->getHash() + nodelist.end()[-1][i + 1]->getHash());
+			//将该父节点的左右孩子节点设置为第i和第i+1个结点
+			new_parent->setChildren(nodelist.end()[-1][i], nodelist.end()[-1][i + 1]);
+			//将new_parent压入new_nodes
+			new_nodes.push_back(new_parent);
+		}
+		
+		nodelist.push_back(new_nodes); //将新一轮的父节点new_nodes压入nodelist
+		count++;
+
+	} while (nodelist.end()[-1].size() > 1); //这样每一轮得到新一层的父节点，直至得到根节点，退出循环
+	cout << "第" << count << "层结点由左至右为:" << endl;
+	printTreeLevel(nodelist.end()[-1]);
+	cout << endl;
+
+	cout << "该默克尔树共" << count << "层" << endl;
+	MerkleRoot = nodelist.end()[-1][0]->getHash(); //根节点的哈希值
+	cout << "根节点为：" << MerkleRoot << endl << endl;
+}
+```
 <br>
 用户只需要按照规则将自己账户进行一次哈希计算，找到其在这个树中的位置，和相邻节点，然后再一层层的向上计算哈希，最终计算出树根，如果和官方公布的一致那就说明是准备金无误的。<br>
 <br>
 函数Hash_Verify()用于验证数据的正确性，用户输入自己的数据，计算哈希值，与默克尔树的叶子结点比对，若存在相等结点，则说明用户数据存在于默克尔树中；与兄弟结点做哈希，得到父节点，父节点也继续与兄弟结点做哈希，直至得到根节点，与原本存储的根节点作比较，如果相等，则说明数据没有被修改过。<br>
 <br>
 关键代码：<br>
-1.bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过  
-2.    node* venode = nullptr;  
-3.    string act_hash = hash;  
-4.  
-5.    for (int i = 0; i < nodelist[0].size(); i++){  
-6.        if (nodelist[0][i]->getHash() == hash){  
-7.            venode = nodelist[0][i];  
-8.        }  
-9.    }  
-10.    if (venode == nullptr){  
-11.        return 0;  
-12.    }  
-13.  
-14.    cout << "验证的哈希值:" << endl;  
-15.    cout << act_hash << endl;  
-16.  
-17.    do {//验证merkle tree是否改变过   
-18.        if (venode->ifleft() == 0){//若为左孩子，则+右兄弟做哈希  
-19.            act_hash = iteration(padding(act_hash + venode->getSibling()->getHash()));  
-20.        }  
-21.        else{//若为右孩子，则左兄弟+做哈希  
-22.            act_hash = iteration(padding(venode->getSibling()->getHash() + act_hash));  
-23.        }  
-24.        cout << act_hash << endl;  
-25.  
-26.        venode = venode->getParent();  
-27.    } while ((venode->getParent()) != NULL); //到达根节点  
-28.  
-29.    return act_hash == MerkleRoot ? 1 : 0;  
-30.}  
+```C++
+bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
+	node* venode = nullptr;
+	string act_hash = hash;
+
+	for (int i = 0; i < nodelist[0].size(); i++){//寻找是否该结点是否存在
+		if (nodelist[0][i]->getHash() == hash){
+			venode = nodelist[0][i];
+		}
+	}
+	if (venode == nullptr){
+		return 0;
+	}
+
+	cout << "验证的哈希值:" << endl;
+	cout << act_hash << endl;
+
+	do {//验证merkle tree是否改变过 
+		if (venode->ifleft() == 0){//若为左孩子，则+右兄弟做哈希
+			act_hash = iteration(padding(act_hash + venode->getSibling()->getHash()));
+		}
+		else{//若为右孩子，则左兄弟+做哈希
+			act_hash = iteration(padding(venode->getSibling()->getHash() + act_hash));
+		}
+		cout << act_hash << endl;
+
+		venode = venode->getParent();
+	} while ((venode->getParent()) != NULL); //到达根节点
+
+	return act_hash == MerkleRoot ? 1 : 0;
+}
+
+```
 
 <br>
 运行结果：<br>
@@ -345,83 +359,88 @@ AES的密钥支持三种长度：AES128、AES192、AES256。密钥的长度决�
 <br>
 关键代码：<br>
 ①行移位：<br>
-1.void ShiftRows(unsigned char parray[4][4]){  
-2.    // 复制parray到temp  
-3.    unsigned char temp[4][4];  
-4.    for (int i = 0; i < 4; i++){  
-5.        for (int j = 0; j < 4; j++)  
-6.            temp[i][j] = parray[i][j];  
-7.    }  
-8.    // 开始移位  
-9.    for (int i = 0; i < 4; i++){  
-10.        // 第一行不变  
-11.        // 第二行向左移一个字节  
-12.        if (i == 1){  
-13.            for (int j = 0; j < 3; j++)  
-14.                parray[i][j] = parray[i][j + 1];  
-15.            parray[i][3] = temp[i][0];  
-16.        }  
-17.        // 第三行向左移两个字节  
-18.        if (i == 2){  
-19.            for (int j = 0; j < 2; j++)  
-20.                parray[i][j] = parray[i][j + 2];  
-21.            parray[i][2] = temp[i][0];  
-22.            parray[i][3] = temp[i][1];  
-23.        }  
-24.        // 第四行向左移三个字节  
-25.        if (i == 3){  
-26.            for (int j = 3; j > 0; j--)  
-27.                parray[i][j] = parray[i][j - 1];  
-28.            parray[i][0] = temp[i][3];  
-29.        }  
-30.    }  
-31.}  
+```C++
+void ShiftRows(unsigned char parray[4][4]){
+    // 复制parray到temp
+    unsigned char temp[4][4];
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++)
+            temp[i][j] = parray[i][j];
+    }
+    // 开始移位
+    for (int i = 0; i < 4; i++){
+        // 第一行不变
+        // 第二行向左移一个字节
+        if (i == 1){
+            for (int j = 0; j < 3; j++)
+                parray[i][j] = parray[i][j + 1];
+            parray[i][3] = temp[i][0];
+        }
+        // 第三行向左移两个字节
+        if (i == 2){
+            for (int j = 0; j < 2; j++)
+                parray[i][j] = parray[i][j + 2];
+            parray[i][2] = temp[i][0];
+            parray[i][3] = temp[i][1];
+        }
+        // 第四行向左移三个字节
+        if (i == 3){
+            for (int j = 3; j > 0; j--)
+                parray[i][j] = parray[i][j - 1];
+            parray[i][0] = temp[i][3];
+        }
+    }
+}
+```
 <br>
 ②列混合：<br>
-1.void MixColums(unsigned char parray[4][4]){  
-2.    // 复制parray  
-3.    unsigned char temp[4][4];  
-4.    for (int i = 0; i < 4; i++){  
-5.        for (int j = 0; j < 4; j++)  
-6.            temp[i][j] = parray[i][j];  
-7.    }  
-8.    //开始计算  
-9.    for (int i = 0; i < 4; i++){  
-10.        for (int j = 0; j < 4; j++){  
-11.            parray[i][j] = GFmu(c[i][0], temp[0][j]) ^ GFmu(c[i][1], temp[1][j]) ^ GFmu(c[i][2], temp[2][j]) ^ GFmu(c[i][3], temp[3][j]);  
-12.        }  
-13.    }  
-14.}  
+```C++
+void MixColums(unsigned char parray[4][4]){
+    unsigned char temp[4][4];
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++)
+            temp[i][j] = parray[i][j];
+    }
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            parray[i][j] = GFmu(c[i][0], temp[0][j]) ^ GFmu(c[i][1], temp[1][j]) ^ GFmu(c[i][2], temp[2][j]) ^ GFmu(c[i][3], temp[3][j]);
+        }
+    }
+}
+```
 <br>
 ③轮密钥生成：<br>
-1.void KeyExtend(unsigned char karray[4][4]){  
-2.    // 将主密钥放入扩展数组  
-3.    KeyColumsCombine(karray, carray);  
-4.    for (int i = 4, j = 0; i < 44; i++){  
-5.        // 4的整数倍要经过g函数  
-6.        if (i % 4 == 0){  
-7.            carray[i] = carray[i - 4] ^ g(carray[i - 1], j);  
-8.            j++; // 下一轮  
-9.        }  
-10.        else  
-11.            carray[i] = carray[i - 1] ^ carray[i - 4];  
-12.        //cout << carray[i];  
-13.    }  
-14.}  
+```C++
+void KeyExtend(unsigned char karray[4][4]){
+    // 将主密钥放入扩展数组
+    KeyColumsCombine(karray, carray);
+    for (int i = 4, j = 0; i < 44; i++){
+        // 4的整数倍要经过g函数
+        if (i % 4 == 0){
+            carray[i] = carray[i - 4] ^ g(carray[i - 1], j);
+            j++; // 下一轮
+        }
+        else
+            carray[i] = carray[i - 1] ^ carray[i - 4];
+    }
+}
+```
 <br>
 ④轮密钥加密：<br>
-1.void AddKeyRound(unsigned char parray[4][4], int round){  
-2.     // 存放列的子密钥  
-3.    unsigned char rarray[4];  
-4.    for (int i = 0; i < 4; i++){  
-5.        // 从carray[44]中取出，放入rarray[4]  
-6.        SplitNumToArray(carray[round * 4 + i], rarray);  
-7.        // 一列一列加密  
-8.        for (int j = 0; j < 4; j++){     
-9.            parray[j][i] = parray[j][i] ^ rarray[j];  
-10.        }  
-11.    }  
-12.}  
+```C++
+void AddKeyRound(unsigned char parray[4][4], int round){
+     // 存放列的子密钥
+    unsigned char rarray[4];
+    for (int i = 0; i < 4; i++){
+        // 从carray[44]中取出，放入rarray[4]
+        SplitNumToArray(carray[round * 4 + i], rarray);
+        // 一列一列加密
+        for (int j = 0; j < 4; j++){
+            parray[j][i] = parray[j][i] ^ rarray[j];
+        }
+    }
+}
+```
 <br>
 <br>
 运行结果：<br>
@@ -449,21 +468,22 @@ rki=K(i+4)=Ki⊕T’(K(i+1)⊕K(i+2)⊕K(i+3)⊕CKi)<br>
 代码语言：C++<br>
 <br>
 关键代码：<br>
-1.uint32_t K[36];  
-2.K[0] = MK[0] ^ FK[0];  
-3.K[1] = MK[1] ^ FK[1];  
-4.K[2] = MK[2] ^ FK[2];  
-5.K[3] = MK[3] ^ FK[3];  
-6.  
-7.//Extension_Loop:  
-8.for (i = 0; i < 32; i++)  
-9.{  
-10.    uint32_t B = CK[i] ^ K[i + 1] ^ K[i + 2] ^ K[i + 3];  
-11.    uint32_t C = (uint32_t)Sbox[(uint8_t)B] + ((uint32_t)Sbox[(uint8_t)(B >> 8)] << 8)  
-12.        + ((uint32_t)Sbox[(uint8_t)(B >> 16)] << 16) + ((uint32_t)Sbox[(uint8_t)(B >> 24)] << 24);  
-13.    uint32_t D = C ^ (C << 13 | C >> 19) ^ (C << 23 | C >> 9);  
-14.    K[i + 4] = K[i] ^ D;  
-15.} 
+```C++
+    uint32_t K[36];
+    K[0] = MK[0] ^ FK[0];
+    K[1] = MK[1] ^ FK[1];
+    K[2] = MK[2] ^ FK[2];
+    K[3] = MK[3] ^ FK[3];
+//KeyExtension_Loop:
+    for (i = 0; i < 32; i++)
+    {
+        uint32_t B = CK[i] ^ K[i + 1] ^ K[i + 2] ^ K[i + 3];
+        uint32_t C = (uint32_t)Sbox[(uint8_t)B] + ((uint32_t)Sbox[(uint8_t)(B >> 8)] << 8)
+            + ((uint32_t)Sbox[(uint8_t)(B >> 16)] << 16) + ((uint32_t)Sbox[(uint8_t)(B >> 24)] << 24);
+        uint32_t D = C ^ (C << 13 | C >> 19) ^ (C << 23 | C >> 9);
+        K[i + 4] = K[i] ^ D;
+    }
+```
 <br>
 SM4 的加密算法<br>
 SM4 密码算法的数据分组长度为 128 比特，密钥长度也是 128 比特，是分组算法当中的一种。它采用 32 轮迭代结构来作为它的加密算法，每轮使用一个轮密钥。设输入的明文为四个字(X0，X1，X2, X3)，一共有 128 位。输入轮密钥为rki,i=0,1,…，31，一共 32 个字。输出密文为四个字(Y0，Y1，Y2, Y3)，128 位。<br>
@@ -474,26 +494,31 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
 (Y0,Y1,Y2,Y3)=R(X32,X33,X34,X35)=(X35,X34,X33,X32)。<br>
 <br>
 关键代码：<br>
-1.uint32_t cipher[36];  
-2.cipher[0] = plain[0];  
-3.cipher[1] = plain[1];  
-4.cipher[2] = plain[2];  
-5.cipher[3] = plain[3];  
-6.  
-7.//SM4_enc:  
-8.for (i = 0; i < 32; i++)  
-9.{  
-10.    uint32_t A = cipher[i + 1] ^ cipher[i + 2] ^ cipher[i + 3] ^ K[i + 4];  
-11.    uint32_t B = (uint32_t)Sbox[(uint8_t)A] + ((uint32_t)Sbox[(uint8_t)(A >> 8)] << 8)  
-12.        + ((uint32_t)Sbox[(uint8_t)(A >> 16)] << 16) + ((uint32_t)Sbox[(uint8_t)(A >> 24)] << 24);  
-13.    uint32_t C = B ^ (B << 2 | B >> 30) ^ (B << 10 | B >> 22) ^ (B << 18 | B >> 14) ^ (B << 24 | B >> 8);  
-14.    cipher[i + 4] = cipher[i] ^ C;  
-15.}  
-16.  
-17.M[0] = cipher[35];  
-18.M[1] = cipher[34];  
-19.M[2] = cipher[33];  
-20.M[3] = cipher[32];  
+```C++
+    uint32_t cipher[36];
+    cipher[0] = plain[0];
+    cipher[1] = plain[1];
+    cipher[2] = plain[2];
+    cipher[3] = plain[3];
+
+//SM4_enc:
+    for (i = 0; i < 32; i++)
+    {
+        uint32_t A = cipher[i + 1] ^ cipher[i + 2] ^ cipher[i + 3] ^ K[i + 4];
+        uint32_t B = (uint32_t)Sbox[(uint8_t)A] + ((uint32_t)Sbox[(uint8_t)(A >> 8)] << 8)
+            + ((uint32_t)Sbox[(uint8_t)(A >> 16)] << 16) + ((uint32_t)Sbox[(uint8_t)(A >> 24)] << 24);
+        uint32_t C = B ^ (B << 2 | B >> 30) ^ (B << 10 | B >> 22) ^ (B << 18 | B >> 14) ^ (B << 24 | B >> 8);
+        cipher[i + 4] = cipher[i] ^ C;
+    }
+
+    M[0] = cipher[35];
+    M[1] = cipher[34];
+    M[2] = cipher[33];
+    M[3] = cipher[32];
+    
+}
+
+```
 <br>
 运行结果：<br>
 以加密128bit数据为例<br>
