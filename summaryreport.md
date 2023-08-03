@@ -35,6 +35,7 @@
 代码语言：C++<br>
 <br>
 关键代码：<br>
+
 ```C++
 string list[max_num];  //建立哈希值对应表
 bool sm3_birthday_attack() {
@@ -92,7 +93,8 @@ Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其�
 代码语言：C++<br>
 <br>
 关键代码：<br>
-```C++
+
+```c++
 string lista[max_num];  //用于存储原消息值
 string listb[max_num];  //用于存储对应哈希值
 bool sm3_rho_attack() {
@@ -159,7 +161,8 @@ bool sm3_rho_attack() {
 代码语言：C++<br>
 <br>
 关键代码：<br>
-```C++
+
+```c++
 string sm3_len_extension_attack(string hash1,int len, string exstr) {
 	string paddingvalue = padding(exstr);//扩展消息填充
 	string newstr = DecToHex(HexToDec(paddingvalue) + len);//将扩展的消息与原始长度组装在一起
@@ -294,7 +297,8 @@ void MerkleTree::BuildTree() { //构造Merkle Tree
 函数Hash_Verify()用于验证数据的正确性，用户输入自己的数据，计算哈希值，与默克尔树的叶子结点比对，若存在相等结点，则说明用户数据存在于默克尔树中；与兄弟结点做哈希，得到父节点，父节点也继续与兄弟结点做哈希，直至得到根节点，与原本存储的根节点作比较，如果相等，则说明数据没有被修改过。<br>
 <br>
 关键代码：<br>
-```C++
+
+```c++
 bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
 	node* venode = nullptr;
 	string act_hash = hash;
@@ -325,7 +329,6 @@ bool MerkleTree::Hash_Verify(string hash){//验证是否被修改过
 
 	return act_hash == MerkleRoot ? 1 : 0;
 }
-
 ```
 
 <br>
@@ -359,7 +362,8 @@ AES的密钥支持三种长度：AES128、AES192、AES256。密钥的长度决�
 <br>
 关键代码：<br>
 ①行移位：<br>
-```C++
+
+```c++
 void ShiftRows(unsigned char parray[4][4]){
     // 复制parray到temp
     unsigned char temp[4][4];
@@ -394,7 +398,8 @@ void ShiftRows(unsigned char parray[4][4]){
 ```
 <br>
 ②列混合：<br>
-```C++
+
+```c++
 void MixColums(unsigned char parray[4][4]){
     unsigned char temp[4][4];
     for (int i = 0; i < 4; i++){
@@ -408,9 +413,11 @@ void MixColums(unsigned char parray[4][4]){
     }
 }
 ```
+
 <br>
 ③轮密钥生成：<br>
-```C++
+
+```c++
 void KeyExtend(unsigned char karray[4][4]){
     // 将主密钥放入扩展数组
     KeyColumsCombine(karray, carray);
@@ -425,9 +432,11 @@ void KeyExtend(unsigned char karray[4][4]){
     }
 }
 ```
+
 <br>
 ④轮密钥加密：<br>
-```C++
+
+```c++
 void AddKeyRound(unsigned char parray[4][4], int round){
      // 存放列的子密钥
     unsigned char rarray[4];
@@ -441,6 +450,7 @@ void AddKeyRound(unsigned char parray[4][4], int round){
     }
 }
 ```
+
 <br>
 <br>
 运行结果：<br>
@@ -465,10 +475,11 @@ rki=K(i+4)=Ki⊕T’(K(i+1)⊕K(i+2)⊕K(i+3)⊕CKi)<br>
 内存：16GB LPDDR4<br>
 操作系统：Win11<br>
 编译器：VS2019<br>
-代码语言：C++<br>
+代码语言：C<br>
 <br>
 关键代码：<br>
-```C++
+
+```c
     uint32_t K[36];
     K[0] = MK[0] ^ FK[0];
     K[1] = MK[1] ^ FK[1];
@@ -484,6 +495,7 @@ rki=K(i+4)=Ki⊕T’(K(i+1)⊕K(i+2)⊕K(i+3)⊕CKi)<br>
         K[i + 4] = K[i] ^ D;
     }
 ```
+
 <br>
 SM4 的加密算法<br>
 SM4 密码算法的数据分组长度为 128 比特，密钥长度也是 128 比特，是分组算法当中的一种。它采用 32 轮迭代结构来作为它的加密算法，每轮使用一个轮密钥。设输入的明文为四个字(X0，X1，X2, X3)，一共有 128 位。输入轮密钥为rki,i=0,1,…，31，一共 32 个字。输出密文为四个字(Y0，Y1，Y2, Y3)，128 位。<br>
@@ -494,7 +506,8 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
 (Y0,Y1,Y2,Y3)=R(X32,X33,X34,X35)=(X35,X34,X33,X32)。<br>
 <br>
 关键代码：<br>
-```C++
+
+```c
     uint32_t cipher[36];
     cipher[0] = plain[0];
     cipher[1] = plain[1];
@@ -517,8 +530,8 @@ Xi+4=F(Xi,Xi+1,Xi+2,Xi+3,rki)=Xi⊕T(Xi⊕Xi+1⊕Xi+2⊕Xi+3⊕rki),i=0,1,···
     M[3] = cipher[32];
     
 }
-
 ```
+
 <br>
 运行结果：<br>
 以加密128bit数据为例<br>
@@ -602,6 +615,7 @@ Secp256k1是指比特币中使用的ECDSA(椭圆曲线数字签名算法)曲线�
 
 
 代码实现：<br>
+
 ```python
 from ecdsa import SigningKey, SECP256k1, VerifyingKey
 import time
@@ -691,6 +705,7 @@ decrypt_password() 将加密密码和 AES 密钥作为参数，并返回密码�
 <br>
 
 关键代码：<br>
+
 ```python
 def get_encryption_key():
     local_state_path = os.path.join(os.environ["USERPROFILE"],
