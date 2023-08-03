@@ -71,7 +71,7 @@ bool sm3_birthday_attack() {
 <br>
 <br>
 <br>
-# # Project2: implement the Rho method of reduced SM3<br>
+## Project2: implement the Rho method of reduced SM3<br>
 <br>
 Pollard ρ算法：该算法考虑伪随机序列xi=x0,f(x0),f(f(x0))...，其中f是多项式函数，此处选择f(x)=2*x+1，必然会形成一个环。通过多项式迭代产生数列，从中寻找整数x1和x2满足H(x1)=H(x2)。<br>
 <br>
@@ -142,7 +142,7 @@ bool sm3_rho_attack() {
 <br>
 <br>
 <br>
-##*Project3: implement length extension attack for SM3, SHA256, etc.<br>
+## *Project3: implement length extension attack for SM3, SHA256, etc.<br>
 <br>
 长度扩展攻击：假设我们有两段数据S和M以及单向散列函数h，其中S是机密信息。我们通过hash=h(S||M)计算hash值,通过计数数据的hash与原始hash对比来校验数据是否可靠。<br>
 <br>
