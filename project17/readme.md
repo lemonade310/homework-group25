@@ -14,6 +14,6 @@
 
 ### 运行方法：
 
-在Python编译器中，打开chromegetksy.py运行即可。
+在Python编译器中，打开chromegetkey.py运行即可。
 
 此代码是获取谷歌浏览器的Python代码，注意谷歌浏览器中需要有保存的密码。
