@@ -1,6 +1,6 @@
 # Project2: implement the Rho method of reduced SM3
 
-#### 运行环境：
+### 运行环境：
 
 处理器：11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
 
@@ -12,7 +12,7 @@
 
 代码语言：C++
 
-#### 运行方法：
+### 运行方法：
 
 在VS2019中打开sm3.h头文件与sm3rhoattack.cpp源文件，运行即可。
 
